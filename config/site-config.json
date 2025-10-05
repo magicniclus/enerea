@@ -1,0 +1,115 @@
+{
+  "company": {
+    "name": "Oleg Bâtiment",
+    "legalName": "Oleg Bâtiment SARL",
+    "address": "Île-de-France, France",
+    "phone": "06 05 59 88 97",
+    "email": "contact@Oleg-batiment.fr",
+    "siret": "À définir",
+    "ceo": "Oleg"
+  },
+  "hero": {
+    "title": "Électricité, Peinture & Plâtrerie en Île-de-France",
+    "subtitle": "Artisan qualifié pour tous vos travaux d'électricité, peinture et plâtrerie en Île-de-France",
+    "buttonText": "Demander un devis",
+    "buttonHref": "#contact",
+    "backgroundImage": null,
+    "backgroundVideo": "video.mp4"
+  },
+  "about": {
+    "sections": [
+      {
+        "smallTitle": "Notre savoir-faire",
+        "title": "Expertise multi-métiers du bâtiment",
+        "subtitle": "Électricité, peinture et plâtrerie de qualité",
+        "content": "Spécialisés dans l'électricité, la peinture et la plâtrerie, nous intervenons sur tous types de chantiers en Île-de-France. Notre équipe de 3 collaborateurs qualifiés vous garantit des travaux conformes aux normes en vigueur, avec la sécurité d'une garantie décennale. Nous privilégions la qualité et la satisfaction client sur chaque intervention.",
+        "gradientFrom": "#2563eb",
+        "gradientTo": "#3b82f6",
+        "buttonText": "Voir nos prestations",
+        "buttonHref": "#services",
+        "reversed": false
+      },
+      {
+        "smallTitle": "Notre zone d'intervention",
+        "title": "Service de proximité en Île-de-France",
+        "subtitle": "Intervention dans un rayon de 100km",
+        "content": "Basés en Île-de-France, nous intervenons dans un rayon de 100 kilomètres pour répondre rapidement à vos besoins. Que ce soit pour une installation électrique, des travaux de peinture ou de plâtrerie, nous nous déplaçons chez vous avec tout le matériel nécessaire. Notre proximité géographique nous permet d'assurer un suivi personnalisé et des délais d'intervention optimisés.",
+        "gradientFrom": "#059669",
+        "gradientTo": "#10b981",
+        "buttonText": "Vérifier votre zone",
+        "buttonHref": "#contact",
+        "reversed": true
+      }
+    ]
+  },
+  "gallery": {
+    "title": "Nos Réalisations",
+    "subtitle": "Découvrez nos travaux d'électricité, peinture et plâtrerie en Île-de-France",
+    "initialDisplayCount": 4,
+    "images": [
+      {
+        "src": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=800&fit=crop",
+        "alt": "Installation électrique - Île-de-France",
+        "title": "Installation électrique - Île-de-France"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&h=800&fit=crop",
+        "alt": "Travaux de peinture - Île-de-France",
+        "title": "Travaux de peinture - Île-de-France"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=800&fit=crop",
+        "alt": "Plâtrerie et cloisons - Île-de-France",
+        "title": "Plâtrerie et cloisons - Île-de-France"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=800&fit=crop",
+        "alt": "Rénovation complète - Île-de-France",
+        "title": "Rénovation complète - Île-de-France"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Devis gratuit et personnalisé pour vos travaux en Île-de-France"
+  },
+  "team": {
+    "members": [
+      {
+        "name": "Oleg",
+        "position": "Artisan du bâtiment",
+        "description": "Spécialisés en électricité, peinture et plâtrerie en Île-de-France. Notre équipe de 3 collaborateurs qualifiés intervient dans un rayon de 100km avec garantie décennale. Nous nous engageons à fournir des prestations de qualité avec des finitions soignées.",
+        "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+      }
+    ]
+  },
+  "partners": {
+    "logos": [
+      {
+        "src": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=100&fit=crop",
+        "alt": "Fournisseur électricité",
+        "name": "Fournisseur électricité"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=100&fit=crop",
+        "alt": "Fournisseur peinture",
+        "name": "Fournisseur peinture"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=200&h=100&fit=crop",
+        "alt": "Fournisseur plâtrerie",
+        "name": "Fournisseur plâtrerie"
+      },
+      {
+        "src": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=100&fit=crop",
+        "alt": "Partenaire qualité",
+        "name": "Partenaire qualité"
+      }
+    ]
+  },
+  "colors": {
+    "primary": "#2563eb",
+    "secondary": "#059669",
+    "accent": "#3b82f6"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "gmPEmqUszl19Exh0Yfha",
+  "informationsPersonnelles": {
+    "nom": "",
+    "prenom": "Olege",
+    "email": "",
+    "telephone": "0605598897",
+    "etape": "R2",
+    "date": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1759234815,
+      "nanoseconds": 203000000
+    },
+    "rgpd": false,
+    "commentaire": "R2 le 03/10/2025"
+  },
+  "informationsEntreprise": {
+    "nomEntreprise": "",
+    "entreprise": "",
+    "metier": "",
+    "secteurActivite": "Ile de france",
+    "raisonSociale": "",
+    "anneeCreation": "",
+    "nombreCollaborateurs": "2-5",
+    "prestation": "Electricité, peinture, platrerie",
+    "rayonIntervention": "100",
+    "certifications": "",
+    "garanties": "Décennal",
+    "partenaires": ""
+  },
+  "siteWebEtCommunication": {
+    "siteWebExistant": false,
+    "siteWebURL": "",
+    "logo": false,
+    "sitePret": false
+  },
+  "metadonnees": {
+    "dateExport": "2025-10-02T14:33:44.925Z",
+    "exportePar": "Admin Trouver Mon Chantier"
+  }
+}
