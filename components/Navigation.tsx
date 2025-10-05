@@ -18,7 +18,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const phoneNumber = "06 05 59 88 97";
+  const phoneNumber = "06 58 17 37 44";
 
   useEffect(() => {
     setIsMounted(true);
@@ -62,7 +62,7 @@ export default function Navigation() {
   return (
     <>
       <nav className="bg-background/95 supports-[backdrop-filter]:bg-background/60 border-b z-50" suppressHydrationWarning>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
           {/* Logo à gauche */}
           <motion.div 
@@ -74,16 +74,16 @@ export default function Navigation() {
           >
             <a href="/" className="flex items-center justify-center">
               <motion.div 
-                className="h-16 w-auto bg-slate-900 rounded-xl p-2"
+                className="h-20 w-auto bg-slate-900 rounded-xl p-2 flex items-center justify-center"
                 whileHover={isMounted ? { scale: 1.05 } : {}}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <Image
                   src="/logo.png"
-                  alt="Olege Bâtiment - Électricité, Peinture, Plâtrerie"
+                  alt="HDJ Rénovation - Placo, Peinture, Sol, Plomberie, Électricité"
                   width={120}
                   height={48}
-                  className="h-12 w-auto object-contain"
+                  className="h-16 w-auto object-contain"
                 />
               </motion.div>
             </a>
@@ -217,7 +217,7 @@ export default function Navigation() {
                 >
                   <Image
                     src="/logo.png"
-                    alt="Olege Bâtiment - Électricité, Peinture, Plâtrerie"
+                    alt="HDJ Rénovation - Placo, Peinture, Sol, Plomberie, Électricité"
                     width={100}
                     height={40}
                     className="h-10 w-auto object-contain"

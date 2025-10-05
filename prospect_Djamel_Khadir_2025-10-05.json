@@ -1,0 +1,41 @@
+{
+  "id": "TXTYBy3bZAHbbKIMOrLj",
+  "informationsPersonnelles": {
+    "nom": "Khadir",
+    "prenom": "Djamel",
+    "email": "hdj.renovation@gmail.com",
+    "telephone": "0658173744",
+    "etape": "R2",
+    "date": {
+      "type": "firestore/timestamp/1.0",
+      "seconds": 1759482899,
+      "nanoseconds": 368000000
+    },
+    "rgpd": false,
+    "commentaire": "R2 piostionné site + projection google ads"
+  },
+  "informationsEntreprise": {
+    "nomEntreprise": "",
+    "entreprise": "HDJ renovation",
+    "metier": "Placo, peinture, sol, plomberie, electricite, menuiserie (fournisseur, poseur)",
+    "secteurActivite": "limoge",
+    "raisonSociale": "Auto-entrepreneur",
+    "anneeCreation": "",
+    "nombreCollaborateurs": "",
+    "prestation": "",
+    "rayonIntervention": "100",
+    "certifications": "",
+    "garanties": "Décennale",
+    "partenaires": ""
+  },
+  "siteWebEtCommunication": {
+    "siteWebExistant": false,
+    "siteWebURL": "",
+    "logo": false,
+    "sitePret": false
+  },
+  "metadonnees": {
+    "dateExport": "2025-10-05T14:30:28.323Z",
+    "exportePar": "Admin Trouver Mon Chantier"
+  }
+}

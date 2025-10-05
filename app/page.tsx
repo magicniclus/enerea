@@ -20,10 +20,10 @@ export default function Home() {
   });
   const servicesData = [
     {
-      title: "Électricité",
-      subtitle: "Installation & Rénovation",
-      content: "Installation électrique complète, rénovation de tableaux électriques, mise aux normes et dépannage avec garantie décennale.",
-      image: "/tableau.png"
+      title: "Placo",
+      subtitle: "Cloisons & Finitions",
+      content: "Pose de cloisons, doublages, plafonds suspendus, enduits et finitions placo avec un savoir-faire professionnel.",
+      image: "/placo.png"
     },
     {
       title: "Peinture",
@@ -32,10 +32,10 @@ export default function Home() {
       image: "/peinture.png"
     },
     {
-      title: "Plâtrerie",
-      subtitle: "Cloisons & Finitions",
-      content: "Pose de cloisons, doublages, plafonds suspendus, enduits et finitions plâtre avec un savoir-faire professionnel.",
-      image: "/mur.png"
+      title: "Sol & Plomberie",
+      subtitle: "Pose & Installation",
+      content: "Pose de revêtements de sol, installation et rénovation plomberie, électricité et menuiserie avec garantie décennale.",
+      image: "/tableau.png"
     }
   ];
 
@@ -107,19 +107,19 @@ export default function Home() {
 
   const teamMembers = [
     {
-      name: "Olege",
+      name: "Djamel Khadir",
       position: "Artisan du bâtiment",
-      description: "Spécialisés en électricité, peinture et plâtrerie en Île-de-France. Notre équipe de 3 collaborateurs qualifiés intervient dans un rayon de 100km avec garantie décennale. Nous nous engageons à fournir des prestations de qualité avec des finitions soignées.",
+      description: "Spécialisé en placo, peinture, sol, plomberie, électricité et menuiserie en Gironde. Auto-entrepreneur qualifié intervenant dans un rayon de 100km avec garantie décennale. Nous nous engageons à fournir des prestations de qualité avec des finitions soignées.",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
     }
   ];
 
   const contactInfo = {
-    address: "Île-de-France\nFrance",
-    phone: "06 05 59 88 97",
-    email: "contact@olege-batiment.fr",
+    address: "Gironde\nFrance",
+    phone: "06 58 17 37 44",
+    email: "hdj.renovation@gmail.com",
     hours: "Lundi - Vendredi: 8h00 - 18h00\nSamedi: 8h00 - 12h00",
-    mapEmbedUrl: "https://maps.google.com/maps?q=Île-de-France,France&t=&z=10&ie=UTF8&iwloc=&output=embed"
+    mapEmbedUrl: "https://maps.google.com/maps?q=Gironde,France&t=&z=10&ie=UTF8&iwloc=&output=embed"
   };
 
   return (

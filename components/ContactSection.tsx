@@ -20,7 +20,7 @@ interface ContactSectionProps {
 
 export default function ContactSection({
   title = "Nous Trouver",
-  subtitle = "Venez nous rencontrer dans nos bureaux",
+  subtitle = "HDJ Rénovation intervient en Gironde dans un rayon de 100km",
   contactInfo
 }: ContactSectionProps) {
   return (
