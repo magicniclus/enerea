@@ -28,7 +28,7 @@ export default function Footer() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center">
+              <div className="flex items-center ">
                 <motion.div 
                   className="h-12 w-auto"
                   whileHover={{ scale: 1.05 }}
@@ -39,7 +39,7 @@ export default function Footer() {
                     alt="HDJ Rénovation - Placo, Peinture, Sol, Plomberie, Électricité"
                     width={120}
                     height={48}
-                    className="h-12 w-auto object-contain brightness-0 invert"
+                    className="h-12 w-auto object-contain filter invert"
                   />
                 </motion.div>
               </div>
