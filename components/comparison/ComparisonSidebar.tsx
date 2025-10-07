@@ -5,6 +5,7 @@ import { CheckCircle, Clock, Search, ThumbsUp, Zap } from 'lucide-react';
 
 interface ComparisonSidebarProps {
   currentStep: number;
+  onStepChange?: (step: number) => void;
 }
 
 const advantages = [
@@ -39,7 +40,7 @@ const steps = [
   "Récapitulatif"
 ];
 
-export default function ComparisonSidebar({ currentStep }: ComparisonSidebarProps) {
+export default function ComparisonSidebar({ currentStep, onStepChange }: ComparisonSidebarProps) {
   return (
     <div className="w-[480px] bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 p-8 flex flex-col justify-center min-h-full relative">
       {/* Avantages - Seulement à la première étape */}
@@ -83,8 +84,14 @@ export default function ComparisonSidebar({ currentStep }: ComparisonSidebarProp
               const isCompleted = stepNumber < currentStep;
               const isCurrent = stepNumber === currentStep;
               
+              const canNavigate = isCompleted || isCurrent;
+              
               return (
-                <div key={index} className="flex items-center space-x-4">
+                <div 
+                  key={index} 
+                  className={`flex items-center space-x-4 ${canNavigate && onStepChange ? 'cursor-pointer hover:bg-white/50 rounded-lg p-2 -m-2 transition-colors' : ''}`}
+                  onClick={() => canNavigate && onStepChange && onStepChange(stepNumber)}
+                >
                   <div className={`
                     flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold
                     ${isCompleted 

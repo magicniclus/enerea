@@ -1,11 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search, Building, Zap, Euro, User, FileText, ArrowRight, ArrowLeft, Plus, X, Upload, ChevronDown, ChevronUp, Trash2 } from 'lucide-react';
+import { saveProspect, formatProspectForSave } from '@/lib/prospects';
+import { uploadProspectFile } from '@/lib/prospectManager';
 
 interface ComparisonFormProps {
   currentStep: number;
   onStepChange: (step: number) => void;
+  prospectId?: string | null;
+  updateProspect?: (stepData: any, stepNumber: number) => Promise<void>;
 }
 
 interface FormData {
@@ -52,7 +57,12 @@ interface FormData {
   // Étape 6: Récapitulatif (pas de champs supplémentaires)
 }
 
-export default function ComparisonForm({ currentStep, onStepChange }: ComparisonFormProps) {
+export default function ComparisonForm({ currentStep, onStepChange, prospectId, updateProspect }: ComparisonFormProps) {
+  const router = useRouter();
+  const [uploadedFiles, setUploadedFiles] = useState<Array<{id: string, name: string, url: string}>>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const [formData, setFormData] = useState<FormData>({
     sirenNumber: '',
     companyName: '',
@@ -155,6 +165,49 @@ export default function ComparisonForm({ currentStep, onStepChange }: Comparison
         meter.id === id ? { ...meter, [field]: value } : meter
       )
     }));
+  };
+
+  // Fonction pour gérer l'upload de fichiers
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || !prospectId) return;
+
+    setIsUploading(true);
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        
+        // Vérifier la taille (max 10MB)
+        if (file.size > 10 * 1024 * 1024) {
+          alert(`Le fichier ${file.name} est trop volumineux (max 10MB)`);
+          continue;
+        }
+
+        // Vérifier le type de fichier
+        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+        if (!allowedTypes.includes(file.type)) {
+          alert(`Le fichier ${file.name} n'est pas au bon format (PDF, JPG, PNG uniquement)`);
+          continue;
+        }
+
+        // Upload du fichier
+        const fileUrl = await uploadProspectFile(prospectId, file, 'documents', 'facture');
+        
+        // Ajouter à la liste des fichiers uploadés
+        setUploadedFiles(prev => [...prev, {
+          id: Date.now().toString() + i,
+          name: file.name,
+          url: fileUrl
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'upload:', error);
+      alert('Erreur lors de l\'upload des fichiers');
+    } finally {
+      setIsUploading(false);
+      // Reset l'input file
+      event.target.value = '';
+    }
   };
 
   // Ajouter un compteur par défaut si nécessaire
@@ -307,11 +360,11 @@ export default function ComparisonForm({ currentStep, onStepChange }: Comparison
         return !!formData.concurrenceReason;
       
       case 4:
-        // Étape 4: Au moins un compteur avec PDL/PCE ou case "pas de données" cochée
+        // Étape 4: Au moins un compteur avec PDL/PCE (même partiel) ou case "pas de données" cochée
         const hasValidElectricityMeter = formData.electricityMeters.length === 0 || 
-          formData.electricityMeters.every(meter => meter.pdl.trim() || meter.noData);
+          formData.electricityMeters.every(meter => meter.pdl.trim().length >= 3 || meter.noData);
         const hasValidGasMeter = formData.gasMeters.length === 0 || 
-          formData.gasMeters.every(meter => meter.pce.trim() || meter.noData);
+          formData.gasMeters.every(meter => meter.pce.trim().length >= 3 || meter.noData);
         return hasValidElectricityMeter && hasValidGasMeter;
       
       case 5:
@@ -401,7 +454,67 @@ export default function ComparisonForm({ currentStep, onStepChange }: Comparison
     return errors;
   };
 
-  const nextStep = () => {
+  // Fonction pour sauvegarder les données de l'étape actuelle
+  const saveCurrentStepData = async (stepNumber: number) => {
+    if (!prospectId || !updateProspect) return;
+
+    try {
+      let stepData = {};
+      
+      switch (stepNumber) {
+        case 1:
+          stepData = {
+            'company.sirenNumber': formData.sirenNumber,
+            'company.name': formData.companyName,
+            'company.address': formData.companyAddress,
+          };
+          break;
+        case 2:
+          stepData = {
+            'company.activityType': formData.activityType,
+            'company.employeeCount': formData.employeeCount,
+          };
+          break;
+        case 3:
+          stepData = {
+            'energy.concurrenceReason': formData.concurrenceReason,
+          };
+          break;
+        case 4:
+          stepData = {
+            electricityMeters: formData.electricityMeters,
+            gasMeters: formData.gasMeters,
+          };
+          break;
+        case 5:
+          stepData = {
+            'energy.electricityPower': formData.electricityPower,
+            'energy.electricityServiceDate': formData.electricityServiceDate,
+            'energy.gasConsumptionRange': formData.gasConsumptionRange,
+            'energy.gasServiceDate': formData.gasServiceDate,
+          };
+          break;
+        case 6:
+          stepData = {
+            'contact.civility': formData.civility,
+            'contact.firstName': formData.firstName,
+            'contact.lastName': formData.lastName,
+            'contact.contactName': formData.contactName,
+            'contact.email': formData.email,
+            'contact.phone': formData.phone,
+            'consents.dataProcessing': formData.consentGiven,
+          };
+          break;
+      }
+
+      await updateProspect(stepData, stepNumber);
+      console.log(`Données de l'étape ${stepNumber} sauvegardées`);
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error);
+    }
+  };
+
+  const nextStep = async () => {
     // Vérifier la validation avant de passer à l'étape suivante
     if (!validateStep(currentStep)) {
       setShowValidationErrors(true); // Afficher les erreurs seulement quand on essaie de passer
@@ -409,6 +522,9 @@ export default function ComparisonForm({ currentStep, onStepChange }: Comparison
     }
     
     setShowValidationErrors(false); // Cacher les erreurs si validation OK
+
+    // Sauvegarder les données de l'étape actuelle avant de passer à la suivante
+    await saveCurrentStepData(currentStep);
 
     if (currentStep === 4) {
       // Si c'est un changement de fournisseur, passer directement à l'étape 6 (coordonnées)
@@ -969,11 +1085,44 @@ export default function ComparisonForm({ currentStep, onStepChange }: Comparison
                     </p>
                     
                     <div className="space-y-3">
-                      <div className="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer">
-                        <Upload className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                        <p className="text-blue-600 font-medium">Cliquez pour téléverser vos factures</p>
-                        <p className="text-gray-500 text-sm mt-1">PDF, JPG, PNG - Max 10MB par fichier</p>
+                      <div className="relative">
+                        <input
+                          type="file"
+                          multiple
+                          accept=".pdf,.jpg,.jpeg,.png"
+                          onChange={handleFileUpload}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          disabled={isUploading}
+                        />
+                        <div className={`border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors ${isUploading ? 'opacity-50' : 'cursor-pointer'}`}>
+                          <Upload className="w-8 h-8 text-blue-500 mx-auto mb-2" />
+                          <p className="text-blue-600 font-medium">
+                            {isUploading ? 'Upload en cours...' : 'Cliquez pour téléverser vos factures'}
+                          </p>
+                          <p className="text-gray-500 text-sm mt-1">PDF, JPG, PNG - Max 10MB par fichier</p>
+                        </div>
                       </div>
+
+                      {/* Liste des fichiers uploadés */}
+                      {uploadedFiles.length > 0 && (
+                        <div className="space-y-2">
+                          <p className="text-sm font-medium text-gray-700">Fichiers téléversés :</p>
+                          {uploadedFiles.map((file) => (
+                            <div key={file.id} className="flex items-center justify-between bg-green-50 p-2 rounded border">
+                              <div className="flex items-center space-x-2">
+                                <FileText className="w-4 h-4 text-green-600" />
+                                <span className="text-sm text-green-800">{file.name}</span>
+                              </div>
+                              <button
+                                onClick={() => setUploadedFiles(prev => prev.filter(f => f.id !== file.id))}
+                                className="text-red-500 hover:text-red-700"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       
                       <label className="flex items-center text-sm text-gray-600">
                         <input
@@ -1268,21 +1417,56 @@ export default function ComparisonForm({ currentStep, onStepChange }: Comparison
               </div>
 
               <button
-                onClick={() => {
+                onClick={async () => {
                   if (!formData.consentGiven) {
                     alert('Veuillez accepter les conditions pour continuer.');
                     return;
                   }
-                  alert('Demande envoyée avec succès ! Notre équipe vous recontactera sous 24h pour vous présenter les meilleures offres du marché.');
+                  
+                  if (isSubmitting) return; // Éviter les doubles clics
+                  
+                  try {
+                    setIsSubmitting(true);
+                    
+                    // Sauvegarder les données finales
+                    if (prospectId && updateProspect) {
+                      // Sauvegarder les données de contact
+                      await updateProspect({
+                        'contact.civility': formData.civility,
+                        'contact.firstName': formData.firstName,
+                        'contact.lastName': formData.lastName,
+                        'contact.contactName': formData.contactName,
+                        'contact.email': formData.email,
+                        'contact.phone': formData.phone,
+                        'consents.dataProcessing': formData.consentGiven,
+                        'consents.consentDate': new Date().toISOString(),
+                        'consents.ipAddress': 'web-form',
+                        status: 'nouveau',
+                        completionRate: 100,
+                        currentStep: 6
+                      }, 6);
+                      
+                      console.log('Prospect finalisé avec succès');
+                      
+                      // Rediriger vers la page de remerciement
+                      router.push(`/merci?prospectId=${prospectId}`);
+                    } else {
+                      throw new Error('Aucun prospect actif');
+                    }
+                  } catch (error) {
+                    console.error('Erreur lors de la finalisation:', error);
+                    alert('Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer.');
+                    setIsSubmitting(false);
+                  }
                 }}
-                disabled={!formData.consentGiven}
+                disabled={!formData.consentGiven || isSubmitting}
                 className={`w-full py-4 rounded-lg font-semibold transition-colors ${
-                  formData.consentGiven 
+                  formData.consentGiven && !isSubmitting
                     ? 'bg-blue-600 text-white hover:bg-blue-700' 
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
               >
-                Envoyer ma demande de devis
+                {isSubmitting ? 'Envoi en cours...' : 'Envoyer ma demande de devis'}
               </button>
             </div>
           </div>

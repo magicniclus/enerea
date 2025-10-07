@@ -51,12 +51,24 @@ export default function Header() {
               </Link>
             </motion.div>
 
-            {/* CTA Button */}
+            {/* Navigation Buttons */}
             <motion.div
               initial={{ x: 50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
+              className="flex items-center space-x-3"
             >
+              {/* Mon espace Button */}
+              <Link 
+                href="/connexion"
+                className={`border border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 ${
+                  isScrolled ? 'px-3 py-2 text-sm' : 'px-4 py-2 text-base'
+                }`}
+              >
+                Mon espace
+              </Link>
+
+              {/* CTA Button */}
               <Link 
                 href="/comparaison"
                 className={`bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${

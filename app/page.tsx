@@ -10,10 +10,13 @@ import ServiceSection from '@/components/ServiceSection';
 import PremiumSection from '@/components/PremiumSection';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
+import StructuredData from '@/components/StructuredData';
+
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
+      <StructuredData type="homepage" />
       <Header />
       <main>
         <Hero />

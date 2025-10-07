@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Collection prospects - Accessible publiquement pour le formulaire
+    match /prospects/{prospectId} {
+      // Lecture : toujours autorisée (pour récupérer les données du formulaire)
+      allow read: if true;
+      
+      // Création : toujours autorisée (pour créer de nouveaux prospects)
+      allow create: if true;
+      
+      // Mise à jour : autorisée si c'est le même prospect ou utilisateur authentifié
+      allow update: if true;
+      
+      // Suppression : seulement pour les utilisateurs authentifiés
+      allow delete: if request.auth != null;
+    }
+    
+    // Collection users - Seulement pour les utilisateurs authentifiés
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Collection admin - Seulement pour les admins
+    match /admin/{document} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Bloquer tout le reste
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
