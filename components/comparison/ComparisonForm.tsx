@@ -564,6 +564,14 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     }
   };
 
+  // Fonction pour faire défiler vers le haut
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   const nextStep = async () => {
     // Vérifier la validation avant de passer à l'étape suivante
     if (!validateStep(currentStep)) {
@@ -576,6 +584,15 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     // Sauvegarder les données de l'étape actuelle avant de passer à la suivante
     await saveCurrentStepData(currentStep);
 
+    // Fonction helper pour changer d'étape avec scroll
+    const changeStepWithScroll = (newStep: number) => {
+      onStepChange(newStep);
+      // Petit délai pour laisser le temps au DOM de se mettre à jour
+      setTimeout(() => {
+        scrollToTop();
+      }, 100);
+    };
+
     if (currentStep === 4) {
       // Debug: vérifier la raison de concurrence
       console.log('Navigation depuis étape 4 - concurrenceReason:', formData.concurrenceReason);
@@ -583,47 +600,56 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
       // Si c'est un changement de fournisseur, passer directement à l'étape 6 (coordonnées)
       if (formData.concurrenceReason === 'changement-fournisseur') {
         console.log('Changement de fournisseur -> étape 6');
-        onStepChange(6);
+        changeStepWithScroll(6);
       } else {
         // Pour les emménagements, afficher l'étape 5 seulement pour les compteurs neufs
         if (formData.concurrenceReason === 'emmenagement-neuf') {
           // Aller à l'étape 5 (informations de mise en service)
           console.log('Emménagement neuf -> étape 5');
-          onStepChange(5);
+          changeStepWithScroll(5);
         } else {
           // Pour les emménagements avec compteur existant, passer directement aux coordonnées
           console.log('Emménagement existant -> étape 6');
-          onStepChange(6);
+          changeStepWithScroll(6);
         }
       }
     } else if (currentStep === 5) {
       // De l'étape 5 (mise en service), aller à l'étape 6 (coordonnées)
-      onStepChange(6);
+      changeStepWithScroll(6);
     } else if (currentStep < 6) {
-      onStepChange(currentStep + 1);
+      changeStepWithScroll(currentStep + 1);
     }
   };
 
   const prevStep = () => {
     setShowValidationErrors(false); // Cacher les erreurs quand on revient en arrière
     
+    // Fonction helper pour changer d'étape avec scroll (même que dans nextStep)
+    const changeStepWithScroll = (newStep: number) => {
+      onStepChange(newStep);
+      // Petit délai pour laisser le temps au DOM de se mettre à jour
+      setTimeout(() => {
+        scrollToTop();
+      }, 100);
+    };
+    
     if (currentStep === 6) {
       // Si on revient de l'étape 6 (coordonnées)
       if (formData.concurrenceReason === 'changement-fournisseur' || formData.concurrenceReason === 'emmenagement-existant') {
         // Si c'était un changement de fournisseur ou emménagement existant, revenir à l'étape 4 (compteurs)
-        onStepChange(4);
+        changeStepWithScroll(4);
       } else if (formData.concurrenceReason === 'emmenagement-neuf') {
         // Si c'était un emménagement neuf, revenir à l'étape 5 (mise en service)
-        onStepChange(5);
+        changeStepWithScroll(5);
       } else {
         // Par défaut, revenir à l'étape 4
-        onStepChange(4);
+        changeStepWithScroll(4);
       }
     } else if (currentStep === 5) {
       // De l'étape 5 (mise en service), revenir à l'étape 4 (compteurs)
-      onStepChange(4);
+      changeStepWithScroll(4);
     } else if (currentStep > 1) {
-      onStepChange(currentStep - 1);
+      changeStepWithScroll(currentStep - 1);
     }
   };
 
