@@ -86,20 +86,21 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     civility: '',
     firstName: '',
     lastName: '',
-    contactName: '',
     email: '',
     phone: '',
+    contactName: '',
     consentGiven: false
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [sirenError, setSirenError] = useState('');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [showResults, setShowResults] = useState(false);
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
   const [electricitySectionOpen, setElectricitySectionOpen] = useState(true);
   const [gasSectionOpen, setGasSectionOpen] = useState(true);
   const [showValidationErrors, setShowValidationErrors] = useState(false);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [showResults, setShowResults] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [sirenError, setSirenError] = useState('');
+  const [forceValidationUpdate, setForceValidationUpdate] = useState(0);
 
   const updateFormData = (field: keyof FormData, value: string | boolean | any[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -291,16 +292,53 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
   };
 
   // Sélection d'une entreprise
-  const selectCompany = (company: any) => {
+  const selectCompany = async (company: any) => {
+    console.log('Sélection entreprise:', company);
+    
     const companyName = company.uniteLegale?.denominationUniteLegale || '';
+    const siren = company.siren || '';
     const address = `${company.adresseEtablissement?.numeroVoieEtablissement || ''} ${company.adresseEtablissement?.typeVoieEtablissement || ''} ${company.adresseEtablissement?.libelleVoieEtablissement || ''}, ${company.adresseEtablissement?.codePostalEtablissement || ''} ${company.adresseEtablissement?.libelleCommuneEtablissement || ''}`.trim();
     
-    updateFormData('sirenNumber', company.siren);
+    console.log('Données extraites:', { siren, companyName, address });
+    
+    // Vérifier que les données essentielles sont présentes
+    if (!siren || !companyName) {
+      console.error('Données manquantes:', { siren, companyName });
+      setSirenError('Erreur lors de la sélection de l\'entreprise. Veuillez réessayer.');
+      return;
+    }
+    
+    // Mettre à jour les données de manière synchrone
+    const newFormData = {
+      ...formData,
+      sirenNumber: siren,
+      companyName: companyName,
+      companyAddress: address
+    };
+    
+    // Mettre à jour le state
+    updateFormData('sirenNumber', siren);
     updateFormData('companyName', companyName);
     updateFormData('companyAddress', address);
     
+    // Effacer les erreurs
+    setSirenError('');
+    setShowValidationErrors(false);
+    
     setShowResults(false);
     setSearchResults([]);
+    
+    console.log('Entreprise sélectionnée avec succès');
+    console.log('Nouvelles données:', newFormData);
+    
+    // Forcer une mise à jour de la validation
+    setForceValidationUpdate(prev => prev + 1);
+    
+    // Vérifier la validation après un court délai pour s'assurer que le state est mis à jour
+    setTimeout(() => {
+      const isValid = validateStep(1);
+      console.log('Validation après sélection:', isValid);
+    }, 100);
   };
 
   const searchSiren = async () => {
@@ -346,10 +384,18 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
 
   // Fonction de validation pour chaque étape
   const validateStep = (step: number): boolean => {
+    // Utiliser forceValidationUpdate pour s'assurer que la validation se met à jour
+    forceValidationUpdate; // Référence pour forcer le re-render
     switch (step) {
       case 1:
         // Étape 1: SIREN et nom d'entreprise obligatoires
-        return !!(formData.sirenNumber.trim() && formData.companyName.trim());
+        const step1Valid = !!(formData.sirenNumber.trim() && formData.companyName.trim());
+        console.log('Validation étape 1:', { 
+          sirenNumber: formData.sirenNumber, 
+          companyName: formData.companyName, 
+          isValid: step1Valid 
+        });
+        return step1Valid;
       
       case 2:
         // Étape 2: Type d'activité obligatoire
