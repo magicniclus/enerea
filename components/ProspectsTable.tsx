@@ -359,20 +359,23 @@ export default function ProspectsTable() {
           <>
             {/* Filtres */}
             <div className="mb-6 space-y-4">
-              <div className="flex items-center space-x-4">
-                <div className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                    <Input
-                      placeholder="Rechercher par nom, email ou entreprise..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
+              {/* Barre de recherche - Toujours en pleine largeur */}
+              <div className="w-full">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input
+                    placeholder="Rechercher par nom, email ou entreprise..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
                 </div>
+              </div>
+              
+              {/* Filtres et bouton d'effacement - Responsive */}
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Statut" />
                   </SelectTrigger>
                   <SelectContent>
@@ -382,8 +385,9 @@ export default function ProspectsTable() {
                     <SelectItem value="converti">Converti</SelectItem>
                   </SelectContent>
                 </Select>
+                
                 <Select value={activityTypeFilter} onValueChange={setActivityTypeFilter}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Type d'énergie" />
                   </SelectTrigger>
                   <SelectContent>
@@ -393,12 +397,13 @@ export default function ProspectsTable() {
                     <SelectItem value="dual">Dual</SelectItem>
                   </SelectContent>
                 </Select>
+                
                 {(searchTerm || statusFilter !== 'all' || activityTypeFilter !== 'all') && (
                   <Button
                     onClick={clearFilters}
                     variant="outline"
                     size="sm"
-                    className="flex items-center space-x-1"
+                    className="flex items-center justify-center space-x-1 w-full sm:w-auto"
                   >
                     <X className="h-4 w-4" />
                     <span>Effacer</span>
@@ -428,13 +433,13 @@ export default function ProspectsTable() {
                   </TableCaption>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[200px]">Contact</TableHead>
-                      <TableHead>Entreprise</TableHead>
-                      <TableHead>Type d'énergie</TableHead>
-                      <TableHead>Employés</TableHead>
+                      <TableHead className="min-w-[200px]">Contact</TableHead>
+                      <TableHead className="hidden sm:table-cell">Entreprise</TableHead>
+                      <TableHead className="hidden md:table-cell">Type d'énergie</TableHead>
+                      <TableHead className="hidden lg:table-cell">Employés</TableHead>
                       <TableHead>Statut</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
+                      <TableHead className="hidden sm:table-cell">Date</TableHead>
+                      <TableHead className="text-right min-w-[100px]">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -456,7 +461,7 @@ export default function ProspectsTable() {
                             {prospect.contact?.email && (
                               <div className="flex items-center space-x-1 text-sm text-gray-600">
                                 <Mail className="h-3 w-3" />
-                                <span>{prospect.contact.email}</span>
+                                <span className="truncate">{prospect.contact.email}</span>
                               </div>
                             )}
                             {prospect.contact?.phone && (
@@ -465,49 +470,60 @@ export default function ProspectsTable() {
                                 <span>{prospect.contact.phone}</span>
                               </div>
                             )}
+                            {/* Afficher l'entreprise sur mobile quand la colonne est cachée */}
+                            <div className="sm:hidden text-xs text-gray-500 flex items-center space-x-1">
+                              <Building className="h-3 w-3" />
+                              <span>{prospect.company?.name || 'Non renseigné'}</span>
+                            </div>
                           </div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="hidden sm:table-cell">
                           <div className="flex items-center space-x-1">
                             <Building className="h-4 w-4 text-gray-400" />
                             <span>{prospect.company?.name || 'Non renseigné'}</span>
                           </div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="hidden md:table-cell">
                           {getActivityTypeBadge(prospect.company?.activityType || '')}
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="hidden lg:table-cell">
                           <span className="text-sm text-gray-600">
                             {prospect.company?.employeeCount || 'Non renseigné'}
                           </span>
                         </TableCell>
-                    <TableCell>
-                      {getStatusBadge(prospect.status)}
-                    </TableCell>
-                    <TableCell>
-                      <span className="text-sm text-gray-600">
-                        {formatDate(prospect.createdAt)}
-                      </span>
-                    </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col space-y-1">
+                            {getStatusBadge(prospect.status)}
+                            {/* Afficher le type d'énergie sur mobile/tablette quand la colonne est cachée */}
+                            <div className="md:hidden">
+                              {getActivityTypeBadge(prospect.company?.activityType || '')}
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell className="hidden sm:table-cell">
+                          <span className="text-sm text-gray-600">
+                            {formatDate(prospect.createdAt)}
+                          </span>
+                        </TableCell>
                         <TableCell className="text-right">
-                          <div className="flex items-center justify-end space-x-2">
+                          <div className="flex items-center justify-end space-x-1">
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={() => openDrawer(prospect)}
-                              className="text-blue-600 hover:text-blue-800"
+                              className="text-blue-600 hover:text-blue-800 p-2"
                             >
-                              <Eye className="h-4 w-4 mr-1" />
-                              Voir
+                              <Eye className="h-4 w-4" />
+                              <span className="hidden sm:ml-1 sm:inline">Voir</span>
                             </Button>
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={() => openDrawer(prospect)}
-                              className="text-green-600 hover:text-green-800"
+                              className="text-green-600 hover:text-green-800 p-2"
                             >
-                              <Edit className="h-4 w-4 mr-1" />
-                              Modifier
+                              <Edit className="h-4 w-4" />
+                              <span className="hidden sm:ml-1 sm:inline">Modifier</span>
                             </Button>
                           </div>
                         </TableCell>

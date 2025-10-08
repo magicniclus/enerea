@@ -84,13 +84,10 @@ export default function ComparisonSidebar({ currentStep, onStepChange }: Compari
               const isCompleted = stepNumber < currentStep;
               const isCurrent = stepNumber === currentStep;
               
-              const canNavigate = isCompleted || isCurrent;
-              
               return (
                 <div 
                   key={index} 
-                  className={`flex items-center space-x-4 ${canNavigate && onStepChange ? 'cursor-pointer hover:bg-white/50 rounded-lg p-2 -m-2 transition-colors' : ''}`}
-                  onClick={() => canNavigate && onStepChange && onStepChange(stepNumber)}
+                  className="flex items-center space-x-4"
                 >
                   <div className={`
                     flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold
