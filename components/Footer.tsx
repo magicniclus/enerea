@@ -14,16 +14,6 @@ export default function Footer() {
             <Logo size="md" />
           </div>
 
-          {/* Bouton Comparaison au centre */}
-          <div className="mb-4 md:mb-0">
-            <Link 
-              href="/comparaison" 
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
-            >
-              Comparer les offres
-            </Link>
-          </div>
-
           {/* Copyright à droite */}
           <div>
             <p className="text-gray-500 text-sm">

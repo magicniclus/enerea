@@ -72,7 +72,7 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     concurrenceReason: '',
     electricityMeters: [],
     gasMeters: [],
-    hasInvoices: false,
+    hasInvoices: true,
     electricityPower: '',
     electricityServiceDate: '',
     gasConsumptionRange: '',
@@ -365,7 +365,8 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
           formData.electricityMeters.every(meter => meter.pdl.trim().length >= 3 || meter.noData);
         const hasValidGasMeter = formData.gasMeters.length === 0 || 
           formData.gasMeters.every(meter => meter.pce.trim().length >= 3 || meter.noData);
-        return hasValidElectricityMeter && hasValidGasMeter;
+        const hasValidInvoices = !formData.hasInvoices || uploadedFiles.length > 0;
+        return hasValidElectricityMeter && hasValidGasMeter && hasValidInvoices;
       
       case 5:
         // Étape 5: Informations de mise en service (seulement pour compteur neuf)
@@ -425,6 +426,9 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
         }
         if (invalidGasMeters.length > 0) {
           errors.push("Veuillez renseigner les numéros PCE ou cocher 'Je ne dispose pas de mon Point d'Estimation et de Comptage'");
+        }
+        if (formData.hasInvoices && uploadedFiles.length === 0) {
+          errors.push("Veuillez téléverser vos factures ou cocher 'Je ne dispose pas de mes factures'");
         }
         break;
       
@@ -527,16 +531,22 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     await saveCurrentStepData(currentStep);
 
     if (currentStep === 4) {
+      // Debug: vérifier la raison de concurrence
+      console.log('Navigation depuis étape 4 - concurrenceReason:', formData.concurrenceReason);
+      
       // Si c'est un changement de fournisseur, passer directement à l'étape 6 (coordonnées)
       if (formData.concurrenceReason === 'changement-fournisseur') {
+        console.log('Changement de fournisseur -> étape 6');
         onStepChange(6);
       } else {
         // Pour les emménagements, afficher l'étape 5 seulement pour les compteurs neufs
         if (formData.concurrenceReason === 'emmenagement-neuf') {
           // Aller à l'étape 5 (informations de mise en service)
+          console.log('Emménagement neuf -> étape 5');
           onStepChange(5);
         } else {
           // Pour les emménagements avec compteur existant, passer directement aux coordonnées
+          console.log('Emménagement existant -> étape 6');
           onStepChange(6);
         }
       }
@@ -1142,6 +1152,8 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
         );
 
       case 5:
+        // Debug: vérifier pourquoi l'étape 5 ne s'affiche pas
+        console.log('Étape 5 - concurrenceReason:', formData.concurrenceReason);
         return (
           <div className="space-y-8">
             <div className="text-center mb-8">
@@ -1154,7 +1166,7 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
               </p>
             </div>
 
-            <div className="space-y-6 max-w-4xl mx-auto">
+            <div className="space-y-6 w-full max-w-lg mx-auto px-6">
               {/* Section Électricité */}
               {(formData.activityType === 'electricite' || formData.activityType === 'dual') && (
                 <div className="border border-gray-200 rounded-xl overflow-hidden">
@@ -1307,7 +1319,7 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
                 Merci de nous communiquer vos coordonnées
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Pour finaliser votre demande et recevoir les meilleures offres du marché.
+                Pour finaliser votre demande et voir les meilleures offres du marché.
               </p>
             </div>
 
@@ -1478,7 +1490,7 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
   };
 
   return (
-    <div className="flex-1 bg-white p-8">
+    <div className="flex-1 bg-white md:p-8 p-4 py-8">
       <div className="max-w-2xl mx-auto">
         {renderStep()}
 

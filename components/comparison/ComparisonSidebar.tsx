@@ -42,7 +42,7 @@ const steps = [
 
 export default function ComparisonSidebar({ currentStep, onStepChange }: ComparisonSidebarProps) {
   return (
-    <div className="w-[480px] bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 p-8 flex flex-col justify-center min-h-full relative">
+    <div className="w-[480px] bg-gradient-to-br from-blue-50 via-blue-100 to-indigo-100 p-8 hidden md:flex flex-col justify-center min-h-full relative">
       {/* Avantages - Seulement à la première étape */}
       {currentStep === 1 && (
         <div className="mb-8">
