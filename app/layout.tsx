@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
 import Analytics from "@/components/Analytics";
@@ -80,22 +79,21 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
+        
+        {/* Google tag (gtag.js) - Installation manuelle */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16405496127"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16405496127');
+            `,
+          }}
+        />
       </head>
       <body className="antialiased" suppressHydrationWarning>
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16405496127"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16405496127');
-          `}
-        </Script>
-        
         <AuthProvider>
           <Analytics />
           <StructuredData type="homepage" />
