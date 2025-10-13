@@ -51,12 +51,16 @@ export default function MentionsLegalesPage() {
               
               <div className="space-y-4 text-gray-600">
                 <p><strong>Raison sociale :</strong> {config.company.legalName}</p>
+                <p><strong>Nom commercial :</strong> {config.company.name}</p>
+                <p><strong>Forme juridique :</strong> Société par actions simplifiée (Société à associé unique)</p>
                 <p><strong>Siège social :</strong> {config.company.address}</p>
-                <p><strong>Capital social :</strong> 50 000 €</p>
-                <p><strong>RCS :</strong> Paris B {config.company.siret}</p>
+                <p><strong>Capital social :</strong> {config.company.capitalSocial} €</p>
+                <p><strong>SIREN :</strong> {config.company.siren}</p>
+                <p><strong>RCS :</strong> {config.company.rcs}</p>
                 <p><strong>SIRET :</strong> {config.company.siret}</p>
-                <p><strong>Code APE :</strong> 6201Z</p>
-                <p><strong>TVA intracommunautaire :</strong> FR12 123456789</p>
+                <p><strong>Code APE :</strong> {config.company.codeApe}</p>
+                <p><strong>TVA intracommunautaire :</strong> {config.company.tvaIntra}</p>
+                <p><strong>Date d'immatriculation :</strong> 23 juillet 2024</p>
               </div>
             </div>
 
@@ -110,7 +114,7 @@ export default function MentionsLegalesPage() {
                   La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite sauf autorisation expresse du directeur de la publication.
                 </p>
                 <p>
-                  Les marques citées sur ce site sont déposées par les sociétés qui en sont propriétaires.
+                  Les marques "Enerea" et "OWN SERVICES" sont déposées et protégées. Toute utilisation non autorisée est interdite.
                 </p>
               </div>
             </div>
@@ -158,8 +162,8 @@ export default function MentionsLegalesPage() {
                   la loi n° 2004-801 du 6 août 2004, l'article L. 226-13 du Code pénal et la Directive Européenne du 24 octobre 1995.
                 </p>
                 <p>
-                  Sur le site <strong>{config.company.name.toLowerCase().replace(/\s/g, '')}.fr</strong>, {config.company.legalName} ne collecte des informations personnelles 
-                  relatives à l'utilisateur que pour le besoin de certains services proposés par le site. 
+                  Sur le site <strong>enerea.fr</strong>, {config.company.legalName} ne collecte des informations personnelles 
+                  relatives à l'utilisateur que pour le besoin de certains services proposés par le site (devis énergétiques, souscription aux offres, service client). 
                   L'utilisateur fournit ces informations en toute connaissance de cause, notamment lorsqu'il procède par lui-même à leur saisie.
                 </p>
                 <p>
@@ -178,7 +182,7 @@ export default function MentionsLegalesPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Cookies</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Le site <strong>{config.company.name.toLowerCase().replace(/\s/g, '')}.fr</strong> peut être amené à vous demander l'acceptation de cookies pour des besoins de statistiques et d'affichage. 
+                  Le site <strong>enerea.fr</strong> peut être amené à vous demander l'acceptation de cookies pour des besoins de statistiques et d'affichage. 
                   Un cookie est une information déposée sur votre disque dur par le serveur du site que vous visitez.
                 </p>
                 <p>
@@ -197,7 +201,7 @@ export default function MentionsLegalesPage() {
                 <Calendar className="h-5 w-5 text-gray-600" />
                 <span className="text-sm font-semibold text-gray-700">Dernière mise à jour</span>
               </div>
-              <p className="text-gray-600">25 août 2025</p>
+              <p className="text-gray-600">13 octobre 2024</p>
             </div>
           </motion.div>
         </div>

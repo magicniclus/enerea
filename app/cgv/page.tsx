@@ -52,10 +52,10 @@ export default function CGVPage() {
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre 
-                  {config.company.legalName}, société par actions simplifiée au capital de 50 000 €, immatriculée au RCS de Paris 
-                  sous le numéro B {config.company.siret}, dont le siège social est situé {config.company.address}, 
+                  {config.company.legalName}, société par actions simplifiée au capital de {config.company.capitalSocial} €, immatriculée au RCS de Paris 
+                  sous le numéro {config.company.rcs}, dont le siège social est situé {config.company.address}, 
                   ci-après dénommée « {config.company.name} » ou « la Société », et toute personne physique ou morale, 
-                  ci-après dénommée « le Client », souhaitant bénéficier des services proposés par TrouverMonChantier.
+                  ci-après dénommée « le Client », souhaitant bénéficier des services énergétiques proposés par {config.company.name}.
                 </p>
                 <p>
                   L'acceptation des présentes CGV est matérialisée par la validation de toute commande ou demande de service. 
@@ -69,15 +69,16 @@ export default function CGVPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Article 1 - Objet</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  {config.company.name} est une plateforme de mise en relation entre particuliers et professionnels du bâtiment. 
+                  {config.company.name} est un fournisseur d'énergie proposant des solutions énergétiques pour particuliers et professionnels. 
                   La Société propose les services suivants :
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Mise en relation avec des artisans et entrepreneurs qualifiés</li>
-                  <li>Établissement de devis gratuits</li>
-                  <li>Suivi de projets de construction et rénovation</li>
-                  <li>Conseil et accompagnement personnalisé</li>
-                  <li>Garanties sur les travaux réalisés</li>
+                  <li>Fourniture d'électricité verte et conventionnelle</li>
+                  <li>Fourniture de gaz naturel</li>
+                  <li>Services d'optimisation énergétique</li>
+                  <li>Conseil en efficacité énergétique</li>
+                  <li>Accompagnement dans la transition énergétique</li>
+                  <li>Services de gestion et suivi de consommation</li>
                 </ul>
               </div>
             </div>
@@ -87,16 +88,16 @@ export default function CGVPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Article 2 - Commandes et devis</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Toute demande de service doit faire l'objet d'une demande écrite (formulaire en ligne, email ou courrier). 
-                  Un devis détaillé sera établi gratuitement et sans engagement.
+                  Toute souscription à nos offres énergétiques doit faire l'objet d'une demande écrite (formulaire en ligne, email ou courrier). 
+                  Un devis personnalisé sera établi gratuitement et sans engagement.
                 </p>
                 <p>
-                  Le devis est valable 30 jours à compter de sa date d'émission. Passé ce délai, 
-                  {config.company.name} se réserve le droit de modifier les prix proposés.
+                  Les offres tarifaires sont valables 30 jours à compter de leur date d'émission. Passé ce délai, 
+                  {config.company.name} se réserve le droit de modifier les tarifs proposés conformément aux évolutions du marché.
                 </p>
                 <p>
-                  L'acceptation du devis par le Client, matérialisée par sa signature et le versement de l'acompte éventuel, 
-                  vaut commande ferme et définitive.
+                  L'acceptation de l'offre par le Client, matérialisée par la signature du contrat de fourniture, 
+                  vaut souscription ferme et définitive. Le contrat prend effet à la date convenue de mise en service.
                 </p>
               </div>
             </div>
@@ -106,20 +107,21 @@ export default function CGVPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Article 3 - Prix et modalités de paiement</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Les prix sont exprimés en euros, toutes taxes comprises (TTC). Ils incluent la TVA au taux en vigueur 
-                  à la date de facturation.
+                  Les prix de l'énergie sont exprimés en euros, toutes taxes comprises (TTC). Ils incluent la TVA au taux en vigueur, 
+                  les taxes sur l'énergie (TICFE, TICGN) et les contributions aux charges de service public.
                 </p>
                 <p>
-                  Les modalités de paiement sont les suivantes :
+                  Les modalités de facturation et paiement sont les suivantes :
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Acompte de 30% à la commande</li>
-                  <li>40% à la livraison des matériaux ou au démarrage des travaux</li>
-                  <li>Solde de 30% à la réception des travaux</li>
+                  <li>Facturation mensuelle ou bimestrielle selon l'offre souscrite</li>
+                  <li>Paiement par prélèvement automatique (recommandé)</li>
+                  <li>Paiement par virement bancaire ou chèque</li>
+                  <li>Paiement en ligne via l'espace client</li>
                 </ul>
                 <p>
-                  Les paiements peuvent être effectués par chèque, virement bancaire ou carte bancaire. 
-                  Tout retard de paiement entraînera l'application d'intérêts de retard au taux légal en vigueur.
+                  Les factures sont établies sur la base des index de consommation relevés par le gestionnaire de réseau. 
+                  Tout retard de paiement entraînera l'application d'intérêts de retard au taux légal en vigueur et pourra conduire à la suspension de la fourniture.
                 </p>
               </div>
             </div>
@@ -129,16 +131,16 @@ export default function CGVPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Article 4 - Délais d'exécution</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Les délais d'exécution sont mentionnés dans le devis et courent à compter de la réception de l'acompte 
-                  et de tous les éléments nécessaires à la réalisation des travaux.
+                  Les délais de mise en service sont mentionnés dans l'offre commerciale et dépendent de la disponibilité 
+                  du gestionnaire de réseau pour effectuer les opérations techniques nécessaires.
                 </p>
                 <p>
                   Ces délais sont donnés à titre indicatif et peuvent être prolongés en cas de force majeure, 
-                  d'intempéries exceptionnelles ou de modifications demandées par le Client.
+                  de difficultés techniques ou d'indisponibilité du gestionnaire de réseau.
                 </p>
                 <p>
-                  En cas de retard imputable à {config.company.name}, le Client pourra demander l'application de pénalités 
-                  de retard fixées à 0,1% du montant TTC des travaux par jour de retard.
+                  {config.company.name} s'engage à informer le Client de tout retard et à faciliter les démarches 
+                  auprès du gestionnaire de réseau pour accélérer la mise en service.
                 </p>
               </div>
             </div>
@@ -156,16 +158,17 @@ export default function CGVPage() {
               
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  {config.company.name} garantit la conformité des travaux réalisés selon les règles de l'art et 
-                  les normes en vigueur. Les garanties légales s'appliquent :
+                  {config.company.name} garantit la continuité de la fourniture d'énergie dans les conditions 
+                  définies par la réglementation en vigueur et les contrats avec les gestionnaires de réseau.
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li><strong>Garantie de parfait achèvement :</strong> 1 an à compter de la réception des travaux</li>
-                  <li><strong>Garantie biennale :</strong> 2 ans pour les équipements dissociables</li>
-                  <li><strong>Garantie décennale :</strong> 10 ans pour les éléments d'équipement indissociables</li>
+                  <li><strong>Garantie de fourniture :</strong> Approvisionnement continu selon les termes du contrat</li>
+                  <li><strong>Garantie qualité :</strong> Énergie conforme aux standards techniques et environnementaux</li>
+                  <li><strong>Garantie service client :</strong> Assistance et suivi personnalisé</li>
                 </ul>
                 <p>
-                  Tous nos artisans partenaires sont assurés et disposent des garanties légales obligatoires.
+                  {config.company.name} dispose des assurances professionnelles nécessaires à son activité 
+                  de fournisseur d'énergie et respecte toutes les obligations réglementaires du secteur.
                 </p>
               </div>
             </div>
@@ -176,15 +179,15 @@ export default function CGVPage() {
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   {config.company.name} s'engage à mettre en œuvre tous les moyens nécessaires pour assurer 
-                  la bonne exécution des travaux confiés aux artisans partenaires.
+                  la fourniture d'énergie dans les conditions contractuelles convenues.
                 </p>
                 <p>
-                  La responsabilité de {config.company.name} ne peut être engagée qu'en cas de faute prouvée 
-                  dans la sélection ou le suivi des artisans partenaires.
+                  La responsabilité de {config.company.name} est limitée aux obligations qui lui incombent en tant que fournisseur. 
+                  Les interruptions de fourniture dues au gestionnaire de réseau ou à des causes extérieures ne sauraient engager sa responsabilité.
                 </p>
                 <p>
                   En aucun cas, {config.company.name} ne pourra être tenue responsable des dommages indirects 
-                  tels que perte d'exploitation, perte de clientèle, trouble commercial quelconque.
+                  tels que perte d'exploitation, perte de clientèle, trouble commercial quelconque, sauf faute lourde prouvée.
                 </p>
               </div>
             </div>
@@ -202,17 +205,17 @@ export default function CGVPage() {
               
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Conformément aux articles L.221-18 et suivants du Code de la consommation, le Client dispose 
+                  Conformément aux articles L.221-18 et suivants du Code de la consommation, le Client consommateur dispose 
                   d'un délai de 14 jours francs pour exercer son droit de rétractation sans avoir à justifier 
                   de motifs ni à payer de pénalités.
                 </p>
                 <p>
-                  Ce délai court à compter de la signature du devis. Le droit de rétractation peut être exercé 
+                  Ce délai court à compter de la signature du contrat de fourniture. Le droit de rétractation peut être exercé 
                   en adressant le formulaire de rétractation ou toute autre déclaration dénuée d'ambiguïté 
                   exprimant la volonté de se rétracter.
                 </p>
                 <p>
-                  <strong>Exception :</strong> Le droit de rétractation ne peut être exercé si les travaux ont commencé 
+                  <strong>Exception :</strong> Le droit de rétractation ne peut être exercé si la fourniture d'énergie a commencé 
                   avec l'accord exprès du Client avant la fin du délai de rétractation.
                 </p>
               </div>
@@ -283,7 +286,7 @@ export default function CGVPage() {
                 <Calendar className="h-5 w-5 text-gray-600" />
                 <span className="text-sm font-semibold text-gray-700">Dernière mise à jour</span>
               </div>
-              <p className="text-gray-600">25 août 2025</p>
+              <p className="text-gray-600">13 octobre 2024</p>
             </div>
           </motion.div>
         </div>

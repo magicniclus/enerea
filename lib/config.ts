@@ -7,6 +7,11 @@ export interface CompanyInfo {
   phone: string;
   email: string;
   siret: string;
+  siren: string;
+  rcs: string;
+  codeApe: string;
+  capitalSocial: string;
+  tvaIntra: string;
   ceo: string;
 }
 
@@ -100,6 +105,11 @@ const defaultConfig: SiteConfig = {
     phone: "06 05 59 88 97",
     email: "contact@olege-batiment.fr",
     siret: "À définir",
+    siren: "À définir",
+    rcs: "À définir",
+    codeApe: "À définir",
+    capitalSocial: "À définir",
+    tvaIntra: "À définir",
     ceo: "Olege"
   },
   hero: {

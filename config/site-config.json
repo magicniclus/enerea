@@ -1,17 +1,22 @@
 {
   "company": {
-    "name": "HDJ Rénovation",
-    "legalName": "HDJ Rénovation",
-    "address": "Gironde, France",
-    "phone": "06 58 17 37 44",
-    "email": "hdj.renovation@gmail.com",
-    "siret": "À définir",
-    "ceo": "Djamel Khadir"
+    "name": "Enerea",
+    "legalName": "OWN SERVICES",
+    "address": "4 Rue des Abat, 75017 Paris",
+    "phone": "01 XX XX XX XX",
+    "email": "contact@enerea.fr",
+    "siret": "92129471700013",
+    "siren": "921294717",
+    "rcs": "Paris B 921 294 717",
+    "codeApe": "8299Z",
+    "capitalSocial": "1 000,00",
+    "tvaIntra": "FR12921294717",
+    "ceo": "Ayoub Serifi"
   },
   "hero": {
-    "title": "HDJ Renovation - Placo, Peinture, Sol, Plomberie & Électricité en gironde",
-    "subtitle": "Artisan qualifié pour tous vos travaux de rénovation : placo, peinture, sol, plomberie, électricité et menuiserie en gironde",
-    "buttonText": "Demander un devis",
+    "title": "Enerea - Votre Fournisseur d'Énergie de Confiance",
+    "subtitle": "Solutions énergétiques innovantes et durables pour particuliers et professionnels",
+    "buttonText": "Découvrir nos offres",
     "buttonHref": "#contact",
     "backgroundImage": null,
     "backgroundVideo": "video.mp4"
@@ -19,32 +24,32 @@
   "about": {
     "sections": [
       {
-        "smallTitle": "Notre savoir-faire",
-        "title": "Expertise multi-métiers du bâtiment",
-        "subtitle": "Placo, peinture, sol, plomberie, électricité et menuiserie",
-        "content": "Spécialisés dans les travaux de placo, peinture, sol, plomberie, électricité et menuiserie, nous intervenons sur tous types de chantiers en Gironde et ses environs. En tant qu'auto-entrepreneur qualifié, nous vous garantissons des travaux conformes aux normes en vigueur, avec la sécurité d'une garantie décennale. Nous privilégions la qualité et la satisfaction client sur chaque intervention.",
+        "smallTitle": "Notre expertise",
+        "title": "Solutions énergétiques sur mesure",
+        "subtitle": "Électricité verte, gaz naturel et services énergétiques",
+        "content": "Enerea vous accompagne dans votre transition énergétique avec des solutions adaptées à vos besoins. Nous proposons des offres d'électricité verte, de gaz naturel et des services d'optimisation énergétique pour particuliers et professionnels. Notre expertise nous permet de vous offrir les meilleures conditions tarifaires et un service client de qualité.",
         "gradientFrom": "#2563eb",
         "gradientTo": "#3b82f6",
-        "buttonText": "Voir nos prestations",
+        "buttonText": "Voir nos offres",
         "buttonHref": "#services",
         "reversed": false
       },
       {
-        "smallTitle": "Notre zone d'intervention",
-        "title": "Service de proximité en Gironde",
-        "subtitle": "Intervention dans un rayon de 100km",
-        "content": "Basés en Gironde, nous intervenons dans un rayon de 100 kilomètres pour répondre rapidement à vos besoins. Que ce soit pour des travaux de placo, peinture, pose de sol, plomberie, électricité ou menuiserie, nous nous déplaçons chez vous avec tout le matériel nécessaire. Notre proximité géographique nous permet d'assurer un suivi personnalisé et des délais d'intervention optimisés.",
+        "smallTitle": "Notre engagement",
+        "title": "Énergie durable et responsable",
+        "subtitle": "Pour un avenir énergétique plus vert",
+        "content": "Chez Enerea, nous croyons en un avenir énergétique durable. Nos offres d'électricité proviennent de sources renouvelables et nous nous engageons à réduire l'empreinte carbone de nos clients. Nous proposons également des solutions d'efficacité énergétique et des conseils personnalisés pour optimiser votre consommation.",
         "gradientFrom": "#059669",
         "gradientTo": "#10b981",
-        "buttonText": "Vérifier votre zone",
+        "buttonText": "Nos engagements",
         "buttonHref": "#contact",
         "reversed": true
       }
     ]
   },
   "gallery": {
-    "title": "Nos Réalisations",
-    "subtitle": "Découvrez nos travaux de placo, peinture, sol, plomberie, électricité et menuiserie en Gironde",
+    "title": "Nos Solutions",
+    "subtitle": "Découvrez nos offres énergétiques et services pour particuliers et professionnels",
     "initialDisplayCount": 4,
     "images": [
       {
@@ -71,14 +76,14 @@
   },
   "contact": {
     "title": "Contactez-nous",
-    "subtitle": "Devis gratuit et personnalisé pour vos travaux en Gironde"
+    "subtitle": "Devis gratuit et personnalisé pour vos besoins énergétiques"
   },
   "team": {
     "members": [
       {
-        "name": "Djamel Khadir",
-        "position": "Artisan du bâtiment",
-        "description": "Spécialisé en placo, peinture, sol, plomberie, électricité et menuiserie en Gironde. Auto-entrepreneur qualifié intervenant dans un rayon de 100km avec garantie décennale. Nous nous engageons à fournir des prestations de qualité avec des finitions soignées, en tant que fournisseur et poseur.",
+        "name": "Ayoub Serifi",
+        "position": "Président d'Enerea",
+        "description": "Expert en solutions énergétiques avec une vision tournée vers l'avenir. Ayoub dirige Enerea avec pour mission de démocratiser l'accès à une énergie propre et abordable pour tous. Son expertise dans le secteur énergétique permet à Enerea de proposer des solutions innovantes et durables.",
         "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
       }
     ]
