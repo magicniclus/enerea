@@ -3,6 +3,7 @@ import "./globals.css";
 import StructuredData from "@/components/StructuredData";
 import Analytics from "@/components/Analytics";
 import { AuthProvider } from "@/contexts/AuthContext";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "ENEREA - Comparateur d'Énergie Professionnel | Électricité & Gaz",
@@ -81,17 +82,16 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         
         {/* Google tag (gtag.js) - Installation manuelle */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16405496127"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-16405496127');
-            `,
-          }}
-        />
+        {/* Google tag (gtag.js) - New */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=AW-17648549412" strategy="afterInteractive" />
+        <Script id="google-analytics-new" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17648549412');
+          `}
+        </Script>
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <AuthProvider>
