@@ -2,12 +2,13 @@
 
 import React from 'react';
 import { useTracking } from '@/hooks/useTracking';
+import type { FormData } from '@/types/global';
 
 interface TrackedFormProps {
   children: React.ReactNode;
   onSubmit: (e: React.FormEvent) => void;
   formType: 'devis' | 'contact' | 'souscription' | string;
-  formData?: any;
+  formData?: FormData;
   className?: string;
 }
 

@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { conversions, event, trackConversion } from '@/lib/gtag';
+import type { FormData } from '@/types/global';
 
 export const useTracking = () => {
   // Track form submissions
-  const trackFormSubmission = useCallback((formType: string, formData?: any) => {
+  const trackFormSubmission = useCallback((formType: string, formData?: FormData) => {
     switch (formType) {
       case 'devis':
         conversions.demandeDevis();

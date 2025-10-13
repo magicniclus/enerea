@@ -1,11 +1,5 @@
 // Google Analytics / Google Ads tracking functions
-
-declare global {
-  interface Window {
-    gtag: (command: string, targetId: string, config?: any) => void;
-    dataLayer: any[];
-  }
-}
+import type { TrackingEvent } from '@/types/global';
 
 export const GA_TRACKING_ID = 'AW-16405496127';
 
@@ -19,12 +13,7 @@ export const pageview = (url: string) => {
 };
 
 // Track events
-export const event = ({ action, category, label, value }: {
-  action: string;
-  category: string;
-  label?: string;
-  value?: number;
-}) => {
+export const event = ({ action, category, label, value }: TrackingEvent) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', action, {
       event_category: category,
