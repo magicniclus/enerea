@@ -18,6 +18,7 @@ interface FormData {
   sirenNumber: string;
   companyName: string;
   companyAddress: string;
+  noCompanyInfo: boolean;
   
   // Étape 2: Type d'activité
   activityType: string;
@@ -67,6 +68,7 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     sirenNumber: '',
     companyName: '',
     companyAddress: '',
+    noCompanyInfo: false,
     activityType: '',
     employeeCount: '',
     concurrenceReason: '',
@@ -388,11 +390,12 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     forceValidationUpdate; // Référence pour forcer le re-render
     switch (step) {
       case 1:
-        // Étape 1: SIREN et nom d'entreprise obligatoires
-        const step1Valid = !!(formData.sirenNumber.trim() && formData.companyName.trim());
+        // Étape 1: SIREN et nom d'entreprise obligatoires OU case "pas d'accès aux infos" cochée
+        const step1Valid = formData.noCompanyInfo || !!(formData.sirenNumber.trim() && formData.companyName.trim());
         console.log('Validation étape 1:', { 
           sirenNumber: formData.sirenNumber, 
           companyName: formData.companyName, 
+          noCompanyInfo: formData.noCompanyInfo,
           isValid: step1Valid 
         });
         return step1Valid;
@@ -451,8 +454,13 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
     
     switch (step) {
       case 1:
-        if (!formData.sirenNumber.trim()) errors.push("Le numéro SIREN est obligatoire");
-        if (!formData.companyName.trim()) errors.push("Le nom de l'entreprise est obligatoire");
+        if (!formData.noCompanyInfo) {
+          if (!formData.sirenNumber.trim()) errors.push("Le numéro SIREN est obligatoire");
+          if (!formData.companyName.trim()) errors.push("Le nom de l'entreprise est obligatoire");
+        }
+        if (!formData.noCompanyInfo && !formData.sirenNumber.trim() && !formData.companyName.trim()) {
+          errors.push("Veuillez renseigner les informations de votre entreprise ou cocher 'Je n'ai pas accès à cette information'");
+        }
         break;
       
       case 2:
@@ -517,6 +525,7 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
             'company.sirenNumber': formData.sirenNumber,
             'company.name': formData.companyName,
             'company.address': formData.companyAddress,
+            'company.noCompanyInfo': formData.noCompanyInfo,
           };
           break;
         case 2:
@@ -679,7 +688,10 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
                   onFocus={() => formData.sirenNumber.length >= 3 && setShowResults(true)}
                   onBlur={() => setTimeout(() => setShowResults(false), 200)}
                   placeholder="Tapez le nom de votre entreprise ou le numéro SIREN"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  disabled={formData.noCompanyInfo}
+                  className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                    formData.noCompanyInfo ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : ''
+                  }`}
                 />
                 {isLoading && (
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -723,12 +735,38 @@ export default function ComparisonForm({ currentStep, onStepChange, prospectId, 
               )}
             </div>
 
-            {formData.companyName && (
+            {formData.companyName && !formData.noCompanyInfo && (
               <div className="bg-green-50 p-4 rounded-lg">
                 <h3 className="font-medium text-green-800">{formData.companyName}</h3>
                 <p className="text-green-600 text-sm">{formData.companyAddress}</p>
               </div>
             )}
+
+            {/* Option "Je n'ai pas accès à cette information" */}
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  id="noCompanyInfo"
+                  checked={formData.noCompanyInfo}
+                  onChange={(e) => {
+                    updateFormData('noCompanyInfo', e.target.checked);
+                    // Si la case est cochée, vider les champs de l'entreprise
+                    if (e.target.checked) {
+                      updateFormData('sirenNumber', '');
+                      updateFormData('companyName', '');
+                      updateFormData('companyAddress', '');
+                      setShowResults(false);
+                      setSearchResults([]);
+                    }
+                  }}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                />
+                <label htmlFor="noCompanyInfo" className="text-sm text-gray-700 cursor-pointer">
+                  Je n'ai pas accès à cette information
+                </label>
+              </div>
+            </div>
           </div>
         );
 
