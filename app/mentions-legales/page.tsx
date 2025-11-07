@@ -50,17 +50,17 @@ export default function MentionsLegalesPage() {
               </div>
               
               <div className="space-y-4 text-gray-600">
-                <p><strong>Raison sociale :</strong> {config.company.legalName}</p>
-                <p><strong>Nom commercial :</strong> {config.company.name}</p>
-                <p><strong>Forme juridique :</strong> Société par actions simplifiée (Société à associé unique)</p>
-                <p><strong>Siège social :</strong> {config.company.address}</p>
-                <p><strong>Capital social :</strong> {config.company.capitalSocial} €</p>
-                <p><strong>SIREN :</strong> {config.company.siren}</p>
-                <p><strong>RCS :</strong> {config.company.rcs}</p>
-                <p><strong>SIRET :</strong> {config.company.siret}</p>
-                <p><strong>Code APE :</strong> {config.company.codeApe}</p>
-                <p><strong>TVA intracommunautaire :</strong> {config.company.tvaIntra}</p>
-                <p><strong>Date d'immatriculation :</strong> 23 juillet 2024</p>
+                <p><strong>Raison sociale :</strong> [Raison sociale de l'entreprise]</p>
+                <p><strong>Nom commercial :</strong> [Nom commercial]</p>
+                <p><strong>Forme juridique :</strong> [Forme juridique]</p>
+                <p><strong>Siège social :</strong> [Adresse du siège social]</p>
+                <p><strong>Capital social :</strong> [Montant du capital] €</p>
+                <p><strong>SIREN :</strong> [Numéro SIREN]</p>
+                <p><strong>RCS :</strong> [RCS et ville d'immatriculation]</p>
+                <p><strong>SIRET :</strong> [Numéro SIRET]</p>
+                <p><strong>Code APE :</strong> [Code APE]</p>
+                <p><strong>TVA intracommunautaire :</strong> [Numéro TVA intracommunautaire]</p>
+                <p><strong>Date d'immatriculation :</strong> [Date d'immatriculation]</p>
               </div>
             </div>
 
@@ -68,8 +68,8 @@ export default function MentionsLegalesPage() {
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Directeur de publication</h2>
               <div className="space-y-4 text-gray-600">
-                <p><strong>Nom :</strong> {config.company.ceo}</p>
-                <p><strong>Qualité :</strong> Président de {config.company.legalName}</p>
+                <p><strong>Nom :</strong> [Nom du directeur de publication]</p>
+                <p><strong>Qualité :</strong> [Fonction dans l'entreprise]</p>
               </div>
             </div>
 
@@ -85,9 +85,9 @@ export default function MentionsLegalesPage() {
               </div>
               
               <div className="space-y-4 text-gray-600">
-                <p><strong>Adresse :</strong> {config.company.address}</p>
-                <p><strong>Téléphone :</strong> <a href={`tel:${config.company.phone.replace(/\s/g, '')}`} className="text-gray-600 hover:text-gray-800 transition-colors">{config.company.phone}</a></p>
-                <p><strong>Email :</strong> <a href={`mailto:${config.company.email}`} className="text-gray-600 hover:text-gray-800 transition-colors">{config.company.email}</a></p>
+                <p><strong>Adresse :</strong> [Adresse de contact]</p>
+                <p><strong>Téléphone :</strong> [Numéro de téléphone]</p>
+                <p><strong>Email :</strong> [Adresse email de contact]</p>
               </div>
             </div>
 
@@ -114,7 +114,7 @@ export default function MentionsLegalesPage() {
                   La reproduction de tout ou partie de ce site sur un support électronique quel qu'il soit est formellement interdite sauf autorisation expresse du directeur de la publication.
                 </p>
                 <p>
-                  Les marques "Enerea" et "OWN SERVICES" sont déposées et protégées. Toute utilisation non autorisée est interdite.
+                  Les marques et logos présents sur ce site sont déposés et protégés. Toute utilisation non autorisée est interdite.
                 </p>
               </div>
             </div>
@@ -129,8 +129,7 @@ export default function MentionsLegalesPage() {
                 </p>
                 <p>
                   Si vous constatez une lacune, erreur ou ce qui parait être un dysfonctionnement, merci de bien vouloir le signaler par email 
-                  à l'adresse <a href={`mailto:${config.company.email}`} className="text-gray-600 hover:text-gray-800 transition-colors">{config.company.email}</a> 
-                  en décrivant le problème de la manière la plus précise possible.
+                  à l'adresse de contact indiquée sur le site en décrivant le problème de la manière la plus précise possible.
                 </p>
                 <p>
                   Tout contenu téléchargé se fait aux risques et périls de l'utilisateur et sous sa seule responsabilité.
@@ -144,11 +143,11 @@ export default function MentionsLegalesPage() {
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   Les sites internet peuvent offrir des liens vers d'autres sites internet ou d'autres ressources disponibles sur Internet. 
-                  {config.company.legalName} ne dispose d'aucun moyen pour contrôler les sites en connexion avec ses sites internet.
+                  L'éditeur du site ne dispose d'aucun moyen pour contrôler les sites en connexion avec ses sites internet.
                 </p>
                 <p>
-                  {config.company.legalName} ne répond pas de la disponibilité de tels sites et sources externes, ni ne la garantit. 
-                  Elle ne peut être tenue pour responsable de tout dommage, de quelque nature que ce soit, résultant du contenu de ces sites ou sources externes.
+                  L'éditeur du site ne répond pas de la disponibilité de tels sites et sources externes, ni ne la garantit. 
+                  Il ne peut être tenu pour responsable de tout dommage, de quelque nature que ce soit, résultant du contenu de ces sites ou sources externes.
                 </p>
               </div>
             </div>
@@ -162,8 +161,8 @@ export default function MentionsLegalesPage() {
                   la loi n° 2004-801 du 6 août 2004, l'article L. 226-13 du Code pénal et la Directive Européenne du 24 octobre 1995.
                 </p>
                 <p>
-                  Sur le site <strong>enerea.fr</strong>, {config.company.legalName} ne collecte des informations personnelles 
-                  relatives à l'utilisateur que pour le besoin de certains services proposés par le site (devis énergétiques, souscription aux offres, service client). 
+                  Sur ce site, l'éditeur ne collecte des informations personnelles 
+                  relatives à l'utilisateur que pour le besoin de certains services proposés par le site. 
                   L'utilisateur fournit ces informations en toute connaissance de cause, notamment lorsqu'il procède par lui-même à leur saisie.
                 </p>
                 <p>
@@ -172,7 +171,7 @@ export default function MentionsLegalesPage() {
                   aux données personnelles le concernant.
                 </p>
                 <p>
-                  Pour l'exercer, adressez-vous à : <a href={`mailto:${config.company.email}`} className="text-gray-600 hover:text-gray-800 transition-colors">{config.company.email}</a>
+                  Pour l'exercer, adressez-vous à l'adresse de contact indiquée sur le site.
                 </p>
               </div>
             </div>
@@ -182,7 +181,7 @@ export default function MentionsLegalesPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Cookies</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Le site <strong>enerea.fr</strong> peut être amené à vous demander l'acceptation de cookies pour des besoins de statistiques et d'affichage. 
+                  Ce site peut être amené à vous demander l'acceptation de cookies pour des besoins de statistiques et d'affichage. 
                   Un cookie est une information déposée sur votre disque dur par le serveur du site que vous visitez.
                 </p>
                 <p>

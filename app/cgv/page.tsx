@@ -52,10 +52,10 @@ export default function CGVPage() {
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre 
-                  {config.company.legalName}, société par actions simplifiée au capital de {config.company.capitalSocial} €, immatriculée au RCS de Paris 
-                  sous le numéro {config.company.rcs}, dont le siège social est situé {config.company.address}, 
-                  ci-après dénommée « {config.company.name} » ou « la Société », et toute personne physique ou morale, 
-                  ci-après dénommée « le Client », souhaitant bénéficier des services énergétiques proposés par {config.company.name}.
+                  [Raison sociale de l'entreprise], [forme juridique] au capital de [montant du capital] €, immatriculée au RCS de [ville] 
+                  sous le numéro [numéro RCS], dont le siège social est situé [adresse du siège social], 
+                  ci-après dénommée « [Nom commercial] » ou « la Société », et toute personne physique ou morale, 
+                  ci-après dénommée « le Client », souhaitant bénéficier des services proposés par [Nom commercial].
                 </p>
                 <p>
                   L'acceptation des présentes CGV est matérialisée par la validation de toute commande ou demande de service. 
@@ -69,16 +69,15 @@ export default function CGVPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Article 1 - Objet</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  {config.company.name} est un fournisseur d'énergie proposant des solutions énergétiques pour particuliers et professionnels. 
                   La Société propose les services suivants :
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Fourniture d'électricité verte et conventionnelle</li>
-                  <li>Fourniture de gaz naturel</li>
-                  <li>Services d'optimisation énergétique</li>
-                  <li>Conseil en efficacité énergétique</li>
-                  <li>Accompagnement dans la transition énergétique</li>
-                  <li>Services de gestion et suivi de consommation</li>
+                  <li>[Service 1]</li>
+                  <li>[Service 2]</li>
+                  <li>[Service 3]</li>
+                  <li>[Service 4]</li>
+                  <li>[Service 5]</li>
+                  <li>[Service 6]</li>
                 </ul>
               </div>
             </div>
@@ -93,7 +92,7 @@ export default function CGVPage() {
                 </p>
                 <p>
                   Les offres tarifaires sont valables 30 jours à compter de leur date d'émission. Passé ce délai, 
-                  {config.company.name} se réserve le droit de modifier les tarifs proposés conformément aux évolutions du marché.
+                  la Société se réserve le droit de modifier les tarifs proposés conformément aux évolutions du marché.
                 </p>
                 <p>
                   L'acceptation de l'offre par le Client, matérialisée par la signature du contrat de fourniture, 
@@ -139,7 +138,7 @@ export default function CGVPage() {
                   de difficultés techniques ou d'indisponibilité du gestionnaire de réseau.
                 </p>
                 <p>
-                  {config.company.name} s'engage à informer le Client de tout retard et à faciliter les démarches 
+                  La Société s'engage à informer le Client de tout retard et à faciliter les démarches 
                   auprès du gestionnaire de réseau pour accélérer la mise en service.
                 </p>
               </div>
@@ -158,17 +157,17 @@ export default function CGVPage() {
               
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  {config.company.name} garantit la continuité de la fourniture d'énergie dans les conditions 
-                  définies par la réglementation en vigueur et les contrats avec les gestionnaires de réseau.
+                  La Société garantit la continuité de la fourniture dans les conditions 
+                  définies par la réglementation en vigueur et les contrats avec les prestataires.
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li><strong>Garantie de fourniture :</strong> Approvisionnement continu selon les termes du contrat</li>
-                  <li><strong>Garantie qualité :</strong> Énergie conforme aux standards techniques et environnementaux</li>
+                  <li><strong>Garantie de fourniture :</strong> Prestation continue selon les termes du contrat</li>
+                  <li><strong>Garantie qualité :</strong> Services conformes aux standards techniques</li>
                   <li><strong>Garantie service client :</strong> Assistance et suivi personnalisé</li>
                 </ul>
                 <p>
-                  {config.company.name} dispose des assurances professionnelles nécessaires à son activité 
-                  de fournisseur d'énergie et respecte toutes les obligations réglementaires du secteur.
+                  La Société dispose des assurances professionnelles nécessaires à son activité 
+                  et respecte toutes les obligations réglementaires du secteur.
                 </p>
               </div>
             </div>
@@ -178,15 +177,15 @@ export default function CGVPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Article 6 - Responsabilité</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  {config.company.name} s'engage à mettre en œuvre tous les moyens nécessaires pour assurer 
-                  la fourniture d'énergie dans les conditions contractuelles convenues.
+                  La Société s'engage à mettre en œuvre tous les moyens nécessaires pour assurer 
+                  la prestation de services dans les conditions contractuelles convenues.
                 </p>
                 <p>
-                  La responsabilité de {config.company.name} est limitée aux obligations qui lui incombent en tant que fournisseur. 
-                  Les interruptions de fourniture dues au gestionnaire de réseau ou à des causes extérieures ne sauraient engager sa responsabilité.
+                  La responsabilité de la Société est limitée aux obligations qui lui incombent en tant que prestataire. 
+                  Les interruptions de service dues à des prestataires tiers ou à des causes extérieures ne sauraient engager sa responsabilité.
                 </p>
                 <p>
-                  En aucun cas, {config.company.name} ne pourra être tenue responsable des dommages indirects 
+                  En aucun cas, la Société ne pourra être tenue responsable des dommages indirects 
                   tels que perte d'exploitation, perte de clientèle, trouble commercial quelconque, sauf faute lourde prouvée.
                 </p>
               </div>
@@ -215,7 +214,7 @@ export default function CGVPage() {
                   exprimant la volonté de se rétracter.
                 </p>
                 <p>
-                  <strong>Exception :</strong> Le droit de rétractation ne peut être exercé si la fourniture d'énergie a commencé 
+                  <strong>Exception :</strong> Le droit de rétractation ne peut être exercé si la prestation de service a commencé 
                   avec l'accord exprès du Client avant la fin du délai de rétractation.
                 </p>
               </div>
@@ -226,7 +225,7 @@ export default function CGVPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Article 8 - Protection des données personnelles</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  {config.company.name} s'engage à respecter la réglementation en vigueur applicable au traitement 
+                  La Société s'engage à respecter la réglementation en vigueur applicable au traitement 
                   des données personnelles, notamment le Règlement Général sur la Protection des Données (RGPD).
                 </p>
                 <p>
@@ -235,8 +234,7 @@ export default function CGVPage() {
                 </p>
                 <p>
                   Le Client dispose d'un droit d'accès, de rectification, de suppression et de portabilité 
-                  de ses données personnelles qu'il peut exercer en contactant : 
-                  <a href={`mailto:${config.company.email}`} className="text-gray-600 hover:text-gray-800 transition-colors"> {config.company.email}</a>
+                  de ses données personnelles qu'il peut exercer en contactant l'adresse de contact indiquée sur le site.
                 </p>
               </div>
             </div>
@@ -251,7 +249,7 @@ export default function CGVPage() {
                 </p>
                 <p>
                   Pour les litiges de consommation, le Client peut recourir gratuitement au service de médiation 
-                  de la consommation dont relève {config.company.name} ou à tout autre médiateur de la consommation.
+                  de la consommation dont relève la Société ou à tout autre médiateur de la consommation.
                 </p>
                 <p>
                   Les présentes CGV sont soumises au droit français. En cas de litige, 
@@ -270,12 +268,12 @@ export default function CGVPage() {
                   les autres stipulations garderont toute leur force et leur portée.
                 </p>
                 <p>
-                  {config.company.name} se réserve le droit de modifier les présentes CGV à tout moment. 
+                  La Société se réserve le droit de modifier les présentes CGV à tout moment. 
                   Les CGV applicables sont celles en vigueur à la date de la commande.
                 </p>
                 <p>
-                  Pour toute question relative aux présentes CGV, le Client peut contacter {config.company.name} 
-                  à l'adresse suivante : <a href={`mailto:${config.company.email}`} className="text-gray-600 hover:text-gray-800 transition-colors">{config.company.email}</a>
+                  Pour toute question relative aux présentes CGV, le Client peut contacter la Société 
+                  à l'adresse de contact indiquée sur le site.
                 </p>
               </div>
             </div>
