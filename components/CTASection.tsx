@@ -43,7 +43,7 @@ export default function CTASection() {
             transition={{ delay: 0.6, duration: 0.6 }}
           >
             <Link
-              href="/comparaison"
+              href="/comparateur-optimise"
               className="inline-flex items-center bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

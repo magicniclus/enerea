@@ -298,7 +298,7 @@ export default function FeatureSection() {
                 transition={{ delay: 0.6, duration: 0.6 }}
               >
                 <Link
-                  href="/comparaison"
+                  href="/comparateur-optimise"
                   className="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Tester le comparateur

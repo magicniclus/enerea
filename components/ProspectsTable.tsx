@@ -153,9 +153,12 @@ export default function ProspectsTable() {
     // Filtre par terme de recherche
     if (searchTerm) {
       filtered = filtered.filter(prospect => {
-        const fullName = `${prospect.contact?.firstName || ''} ${prospect.contact?.lastName || ''}`.toLowerCase();
-        const email = (prospect.contact?.email || '').toLowerCase();
-        const company = (prospect.company?.name || '').toLowerCase();
+        // Support pour l'ancienne structure (contact.firstName) et la nouvelle (firstName direct)
+        const firstName = prospect.contact?.firstName || (prospect as any).firstName || '';
+        const lastName = prospect.contact?.lastName || (prospect as any).lastName || '';
+        const fullName = `${firstName} ${lastName}`.toLowerCase();
+        const email = (prospect.contact?.email || (prospect as any).email || '').toLowerCase();
+        const company = (prospect.company?.name || (prospect as any).companyName || '').toLowerCase();
         const search = searchTerm.toLowerCase();
         
         return fullName.includes(search) || 
@@ -173,9 +176,14 @@ export default function ProspectsTable() {
 
     // Filtre par type d'activité
     if (activityTypeFilter !== 'all') {
-      filtered = filtered.filter(prospect => 
-        prospect.company?.activityType === activityTypeFilter
-      );
+      filtered = filtered.filter(prospect => {
+        const activityType = prospect.company?.activityType || (prospect as any).energyType;
+        // Mapper les nouveaux types vers les anciens
+        const mappedType = activityType === 'electricity' ? 'electricite' : 
+                          activityType === 'gas' ? 'gaz' : 
+                          activityType === 'both' ? 'dual' : activityType;
+        return mappedType === activityTypeFilter;
+      });
     }
 
     setFilteredProspects(filtered);
@@ -270,13 +278,18 @@ export default function ProspectsTable() {
   };
 
   const getActivityTypeBadge = (activityType: string) => {
-    switch (activityType) {
+    // Mapper les nouveaux types vers l'affichage
+    const mappedType = activityType === 'electricity' ? 'electricite' : 
+                      activityType === 'gas' ? 'gaz' : 
+                      activityType === 'both' ? 'dual' : activityType;
+    
+    switch (mappedType) {
       case 'electricite':
-        return <Badge variant="default" className="bg-yellow-100 text-yellow-800">Électricité</Badge>;
+        return <Badge variant="default" className="bg-yellow-100 text-yellow-800">⚡ Électricité</Badge>;
       case 'gaz':
-        return <Badge variant="default" className="bg-blue-100 text-blue-800">Gaz</Badge>;
+        return <Badge variant="default" className="bg-blue-100 text-blue-800">🔥 Gaz</Badge>;
       case 'dual':
-        return <Badge variant="default" className="bg-green-100 text-green-800">Dual</Badge>;
+        return <Badge variant="default" className="bg-green-100 text-green-800">⚡+🔥 Les deux</Badge>;
       default:
         return <Badge variant="secondary">Non défini</Badge>;
     }
@@ -453,38 +466,54 @@ export default function ProspectsTable() {
                         <TableCell className="font-medium">
                           <div className="flex flex-col space-y-1">
                             <div className="font-semibold text-gray-900">
-                              {prospect.contact?.firstName && prospect.contact?.lastName 
-                                ? `${prospect.contact.firstName} ${prospect.contact.lastName}`
-                                : 'Nom non renseigné'
-                              }
+                              {/* Support pour les deux structures de données */}
+                              {(() => {
+                                const firstName = prospect.contact?.firstName || (prospect as any).firstName;
+                                const lastName = prospect.contact?.lastName || (prospect as any).lastName;
+                                return firstName && lastName 
+                                  ? `${firstName} ${lastName}`
+                                  : 'Nom non renseigné';
+                              })()}
                             </div>
-                            {prospect.contact?.email && (
-                              <div className="flex items-center space-x-1 text-sm text-gray-600">
-                                <Mail className="h-3 w-3" />
-                                <span className="truncate">{prospect.contact.email}</span>
-                              </div>
-                            )}
-                            {prospect.contact?.phone && (
-                              <div className="flex items-center space-x-1 text-sm text-gray-600">
-                                <Phone className="h-3 w-3" />
-                                <span>{prospect.contact.phone}</span>
-                              </div>
-                            )}
+                            {(() => {
+                              const email = prospect.contact?.email || (prospect as any).email;
+                              return email && (
+                                <div className="flex items-center space-x-1 text-sm text-gray-600">
+                                  <Mail className="h-3 w-3" />
+                                  <span className="truncate">{email}</span>
+                                </div>
+                              );
+                            })()}
+                            {(() => {
+                              const phone = prospect.contact?.phone || (prospect as any).phone;
+                              return phone && (
+                                <div className="flex items-center space-x-1 text-sm text-gray-600">
+                                  <Phone className="h-3 w-3" />
+                                  <span>{phone}</span>
+                                </div>
+                              );
+                            })()}
                             {/* Afficher l'entreprise sur mobile quand la colonne est cachée */}
                             <div className="sm:hidden text-xs text-gray-500 flex items-center space-x-1">
                               <Building className="h-3 w-3" />
-                              <span>{prospect.company?.name || 'Non renseigné'}</span>
+                              <span>{prospect.company?.name || (prospect as any).companyName || 'Non renseigné'}</span>
                             </div>
+                            {/* Afficher la source si c'est le nouveau formulaire */}
+                            {(prospect as any).source === 'comparateur-optimise' && (
+                              <div className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full inline-flex items-center w-fit">
+                                ✨ Nouveau formulaire
+                              </div>
+                            )}
                           </div>
                         </TableCell>
                         <TableCell className="hidden sm:table-cell">
                           <div className="flex items-center space-x-1">
                             <Building className="h-4 w-4 text-gray-400" />
-                            <span>{prospect.company?.name || 'Non renseigné'}</span>
+                            <span>{prospect.company?.name || (prospect as any).companyName || 'Non renseigné'}</span>
                           </div>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">
-                          {getActivityTypeBadge(prospect.company?.activityType || '')}
+                          {getActivityTypeBadge(prospect.company?.activityType || (prospect as any).energyType || '')}
                         </TableCell>
                         <TableCell className="hidden lg:table-cell">
                           <span className="text-sm text-gray-600">
@@ -496,7 +525,7 @@ export default function ProspectsTable() {
                             {getStatusBadge(prospect.status)}
                             {/* Afficher le type d'énergie sur mobile/tablette quand la colonne est cachée */}
                             <div className="md:hidden">
-                              {getActivityTypeBadge(prospect.company?.activityType || '')}
+                              {getActivityTypeBadge(prospect.company?.activityType || (prospect as any).energyType || '')}
                             </div>
                           </div>
                         </TableCell>

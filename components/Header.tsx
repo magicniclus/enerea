@@ -39,7 +39,7 @@ export default function Header() {
                   Mon espace
                 </Link>
                 <Link 
-                  href="/comparaison"
+                  href="/comparateur-optimise"
                   className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md px-2 py-1.5 text-xs sm:px-6 sm:py-2 sm:text-base"
                 >
                   <span className="hidden sm:inline">Lancer une comparaison</span>
@@ -110,11 +110,11 @@ export default function Header() {
 
               {/* CTA Button */}
               <Link 
-                href="/comparaison"
+                href="/comparateur-optimise"
                 className={`bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${
                   isScrolled 
                     ? 'px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm' 
-                    : 'px-2 py-1.5 text-xs sm:px-6 sm:py-2 sm:text-base'
+                    : 'px-3 py-1.5 text-sm sm:px-6 sm:py-2 sm:text-base'
                 }`}
               >
                 <span className="hidden sm:inline">{isScrolled ? 'Comparer' : 'Lancer une comparaison'}</span>

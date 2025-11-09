@@ -68,10 +68,13 @@ export default function ProspectDrawer({
             <div className="space-y-6">
               <SheetTitle className="text-3xl font-bold flex items-center gap-4">
                 <User className="h-8 w-8 text-blue-600" />
-                {prospect?.contact?.firstName && prospect?.contact?.lastName
-                  ? `${prospect.contact.firstName} ${prospect.contact.lastName}`
-                  : 'Prospect sans nom'
-                }
+                {(() => {
+                  const firstName = prospect?.contact?.firstName || prospect?.firstName;
+                  const lastName = prospect?.contact?.lastName || prospect?.lastName;
+                  return firstName && lastName
+                    ? `${firstName} ${lastName}`
+                    : 'Prospect sans nom';
+                })()}
               </SheetTitle>
               
               <SheetDescription className="text-lg flex items-center gap-4">
@@ -84,6 +87,9 @@ export default function ProspectDrawer({
                 <div><strong>Créé le:</strong> {formatDate(prospect?.createdAt)}</div>
                 {prospect?.updatedAt && (
                   <div><strong>Modifié le:</strong> {formatDate(prospect?.updatedAt)}</div>
+                )}
+                {prospect?.source && (
+                  <div><strong>Source:</strong> {prospect.source === 'comparateur-optimise' ? '✨ Nouveau formulaire optimisé' : prospect.source}</div>
                 )}
               </div>
             </div>
@@ -106,8 +112,14 @@ export default function ProspectDrawer({
                     <Input
                       id="firstName"
                       className="mt-2"
-                      value={editedProspect.contact?.firstName || ''}
-                      onChange={(e) => updateEditedProspect('contact.firstName', e.target.value)}
+                      value={editedProspect.contact?.firstName || editedProspect.firstName || ''}
+                      onChange={(e) => {
+                        if (editedProspect.contact) {
+                          updateEditedProspect('contact.firstName', e.target.value);
+                        } else {
+                          updateEditedProspect('firstName', e.target.value);
+                        }
+                      }}
                     />
                   </div>
                   
@@ -116,8 +128,14 @@ export default function ProspectDrawer({
                     <Input
                       id="lastName"
                       className="mt-2"
-                      value={editedProspect.contact?.lastName || ''}
-                      onChange={(e) => updateEditedProspect('contact.lastName', e.target.value)}
+                      value={editedProspect.contact?.lastName || editedProspect.lastName || ''}
+                      onChange={(e) => {
+                        if (editedProspect.contact) {
+                          updateEditedProspect('contact.lastName', e.target.value);
+                        } else {
+                          updateEditedProspect('lastName', e.target.value);
+                        }
+                      }}
                     />
                   </div>
                   
@@ -127,8 +145,14 @@ export default function ProspectDrawer({
                       id="email"
                       type="email"
                       className="mt-2"
-                      value={editedProspect.contact?.email || ''}
-                      onChange={(e) => updateEditedProspect('contact.email', e.target.value)}
+                      value={editedProspect.contact?.email || editedProspect.email || ''}
+                      onChange={(e) => {
+                        if (editedProspect.contact) {
+                          updateEditedProspect('contact.email', e.target.value);
+                        } else {
+                          updateEditedProspect('email', e.target.value);
+                        }
+                      }}
                     />
                   </div>
                   
@@ -137,8 +161,14 @@ export default function ProspectDrawer({
                     <Input
                       id="phone"
                       className="mt-2"
-                      value={editedProspect.contact?.phone || ''}
-                      onChange={(e) => updateEditedProspect('contact.phone', e.target.value)}
+                      value={editedProspect.contact?.phone || editedProspect.phone || ''}
+                      onChange={(e) => {
+                        if (editedProspect.contact) {
+                          updateEditedProspect('contact.phone', e.target.value);
+                        } else {
+                          updateEditedProspect('phone', e.target.value);
+                        }
+                      }}
                     />
                   </div>
                 </CardContent>
@@ -158,8 +188,14 @@ export default function ProspectDrawer({
                     <Input
                       id="companyName"
                       className="mt-2"
-                      value={editedProspect.company?.name || ''}
-                      onChange={(e) => updateEditedProspect('company.name', e.target.value)}
+                      value={editedProspect.company?.name || editedProspect.companyName || ''}
+                      onChange={(e) => {
+                        if (editedProspect.company) {
+                          updateEditedProspect('company.name', e.target.value);
+                        } else {
+                          updateEditedProspect('companyName', e.target.value);
+                        }
+                      }}
                     />
                   </div>
                   
@@ -168,24 +204,46 @@ export default function ProspectDrawer({
                     <Input
                       id="sirenNumber"
                       className="mt-2"
-                      value={editedProspect.company?.sirenNumber || ''}
-                      onChange={(e) => updateEditedProspect('company.sirenNumber', e.target.value)}
+                      value={editedProspect.company?.sirenNumber || editedProspect.sirenNumber || ''}
+                      onChange={(e) => {
+                        if (editedProspect.company) {
+                          updateEditedProspect('company.sirenNumber', e.target.value);
+                        } else {
+                          updateEditedProspect('sirenNumber', e.target.value);
+                        }
+                      }}
                     />
                   </div>
                   
                   <div>
                     <Label htmlFor="activityType" className="text-sm font-medium">Type d'énergie</Label>
                     <Select 
-                      value={editedProspect.company?.activityType || ''} 
-                      onValueChange={(value) => updateEditedProspect('company.activityType', value)}
+                      value={(() => {
+                        const activityType = editedProspect.company?.activityType || editedProspect.energyType;
+                        // Mapper les nouveaux types vers les anciens pour l'affichage
+                        return activityType === 'electricity' ? 'electricite' : 
+                               activityType === 'gas' ? 'gaz' : 
+                               activityType === 'both' ? 'dual' : activityType || '';
+                      })()} 
+                      onValueChange={(value) => {
+                        if (editedProspect.company) {
+                          updateEditedProspect('company.activityType', value);
+                        } else {
+                          // Mapper vers le nouveau format
+                          const newValue = value === 'electricite' ? 'electricity' : 
+                                          value === 'gaz' ? 'gas' : 
+                                          value === 'dual' ? 'both' : value;
+                          updateEditedProspect('energyType', newValue);
+                        }
+                      }}
                     >
                       <SelectTrigger className="mt-2">
                         <SelectValue placeholder="Sélectionner" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="electricite">Électricité</SelectItem>
-                        <SelectItem value="gaz">Gaz</SelectItem>
-                        <SelectItem value="dual">Électricité + Gaz</SelectItem>
+                        <SelectItem value="electricite">⚡ Électricité</SelectItem>
+                        <SelectItem value="gaz">🔥 Gaz</SelectItem>
+                        <SelectItem value="dual">⚡+🔥 Les deux</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -293,6 +351,80 @@ export default function ProspectDrawer({
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Informations spécifiques au nouveau formulaire */}
+              {editedProspect.source === 'comparateur-optimise' && (
+                <Card>
+                  <CardHeader className="pb-6">
+                    <CardTitle className="flex items-center gap-3 text-xl">
+                      <Zap className="h-6 w-6 text-purple-600" />
+                      Informations du nouveau formulaire ✨
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <Label className="text-sm font-medium">Situation</Label>
+                        <div className="mt-2 p-3 bg-gray-50 rounded-lg">
+                          {editedProspect.situation === 'compare_current' ? '🔄 Comparer le fournisseur actuel' :
+                           editedProspect.situation === 'new_location' ? '🏢 Nouveau local' :
+                           editedProspect.situation === 'new_site' ? '🆕 Nouveau site (compteur neuf)' :
+                           editedProspect.situation || 'Non spécifié'}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <Label className="text-sm font-medium">Besoin d'aide pour l'estimation</Label>
+                        <div className="mt-2 p-3 bg-gray-50 rounded-lg">
+                          {editedProspect.needHelp ? '✅ Oui, aide demandée' : '❌ Non, facture fournie'}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <Label className="text-sm font-medium">Consentement donné</Label>
+                        <div className="mt-2 p-3 bg-gray-50 rounded-lg">
+                          {editedProspect.consentGiven ? '✅ Oui' : '❌ Non'}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <Label className="text-sm font-medium">Facture téléversée</Label>
+                        <div className="mt-2 p-3 bg-gray-50 rounded-lg">
+                          {editedProspect.hasInvoice ? '📄 Oui' : '❌ Non'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Fichiers téléversés du nouveau formulaire */}
+                    {editedProspect.uploadedFiles && editedProspect.uploadedFiles.length > 0 && (
+                      <div>
+                        <Label className="text-sm font-medium">Fichiers téléversés</Label>
+                        <div className="space-y-3 mt-3">
+                          {editedProspect.uploadedFiles.map((file: any, index: number) => (
+                            <div key={index} className="flex items-center justify-between p-4 bg-green-50 rounded-lg border border-green-200">
+                              <div className="flex items-center space-x-3">
+                                <FileText className="h-5 w-5 text-green-600" />
+                                <span className="text-sm font-medium">{file.name}</span>
+                              </div>
+                              {file.url && (
+                                <Button 
+                                  size="sm" 
+                                  variant="outline" 
+                                  onClick={() => window.open(file.url, '_blank')}
+                                  className="ml-4"
+                                >
+                                  <Download className="h-4 w-4 mr-2" />
+                                  Voir
+                                </Button>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Documents */}
               {hasDocuments() && (

@@ -120,7 +120,7 @@ export default function Hero() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <Link 
-                href="/comparaison"
+                href="/comparateur-optimise"
                 className="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 <motion.svg 
