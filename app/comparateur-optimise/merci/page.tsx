@@ -222,8 +222,8 @@ export default function MerciOptimisePage() {
               key={i}
               className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-20"
               initial={{ 
-                x: Math.random() * window.innerWidth,
-                y: window.innerHeight + 10,
+                x: Math.random() * 1200, // Valeur fixe pour éviter window
+                y: 800, // Valeur fixe pour éviter window
                 scale: 0
               }}
               animate={{ 
